@@ -4,12 +4,18 @@ import personajes.*
 
 program juego_aventura {
 
-	game.title("Oh qué aventura objetosa")
+	game.title("Skeleton Nightmare")
 	game.height(10)
-	game.width(10)
+	game.width(11)
+	game.cellSize(50)
 	game.boardGround("fondoBlanco.png")
 
 	nivelBloques.configurate()	
 	player.movimientos()
+	game.onTick(2000, "movimientoRandom", { craneo1.mover() })
+	game.onTick(2000, "movimientoRandom", { craneo2.mover() })
+	game.whenCollideDo(player, { elemento => 
+		player.colision(elemento)
+	})
 	game.start()
 }

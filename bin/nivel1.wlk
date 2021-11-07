@@ -10,12 +10,16 @@ object nivelBloques {
 	method configurate() {
 		// fondo - es importante que sea el primer visual que se agregue
 		game.addVisual(new Fondo(image="dungeonwall.png"))
-				 
+		// Soundtrack del nivel 
+		const ost = game.sound("backgroundOST.mp3")
+		ost.shouldLoop(true)
+		game.schedule(500, { ost.play()} )
 		// otros visuals, p.ej. bloques o llaves
-		game.addVisual(new Puerta(position=game.at(0,0)))
-			
+		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-1)))
+		game.addVisual(craneo1)
+		game.addVisual(craneo2)
 		// personaje, es importante que sea el último visual que se agregue
-		game.addVisualCharacter(player)
+		game.addVisual(player)
 		
 		// teclado
 		// este es para probar, no es necesario dejarlo

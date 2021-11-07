@@ -18,9 +18,3 @@ class Puerta {
 	const property image = "Door.png"
 }
 
-object energia {
-	method position() = game.center()
-	method text() = player.energia()
-}
-
-
