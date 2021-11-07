@@ -13,6 +13,7 @@ object nivelBloques {
 				 
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-1)))
+		game.addVisual(craneo1)
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
 		
