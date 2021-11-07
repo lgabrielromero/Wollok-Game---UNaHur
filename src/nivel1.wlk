@@ -12,10 +12,9 @@ object nivelBloques {
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 				 
 		// otros visuals, p.ej. bloques o llaves
-		game.addVisual(new Puerta(position=game.at(0,0)))
-			
+		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-1)))
 		// personaje, es importante que sea el último visual que se agregue
-		game.addVisualCharacter(player)
+		game.addVisual(player)
 		
 		// teclado
 		// este es para probar, no es necesario dejarlo
