@@ -1,5 +1,5 @@
 import wollok.game.*
-
+import hud.*
 // en la implementación real, conviene tener un personaje por nivel
 // los personajes probablemente tengan un comportamiendo más complejo que solamente
 // imagen y posición
@@ -7,7 +7,7 @@ import wollok.game.*
 object player {
 	var property position = game.center()
 	var property image = "RightPlayer.png"
-	var property vida = 3
+	var property vida = 4
 	var property energia = 30
 
 
@@ -70,6 +70,7 @@ object player {
 		position = game.center()
 		game.sound("dmg.mp3").play()
 		}
+	barraDeVidas.barra()
 	}
 	
 	method colision(elemento){
@@ -79,6 +80,7 @@ object player {
 	}
 	
 }
+
 
 class Esqueleto{
 	var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
