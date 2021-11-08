@@ -15,6 +15,7 @@ object nivelBloques {
 		const ost = game.sound("backgroundOST.mp3")
 		ost.shouldLoop(true)
 		game.schedule(500, { ost.play()} )
+		// Elementos del Hud (Estado del jugador)
 		game.addVisual(barraDeVidas)
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-1)))
