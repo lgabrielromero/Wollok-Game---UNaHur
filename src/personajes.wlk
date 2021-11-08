@@ -1,4 +1,5 @@
 import wollok.game.*
+import elementos.*
 import hud.*
 // en la implementación real, conviene tener un personaje por nivel
 // los personajes probablemente tengan un comportamiendo más complejo que solamente
@@ -9,11 +10,13 @@ object player {
 	var property image = "RightPlayer.png"
 	var property vida = 4
 	var property energia = 30
+	var property direccion = null
 
 
 
 	method moverArriba(){
 		self.image("UpPlayer.png")
+		self.direccion(arriba)
 		self.energia(self.energia() - 1)
 		if (self.position().y() == game.height() - 1){
 			position = game.at(self.position().x(),0)
@@ -24,6 +27,7 @@ object player {
 	}
 	method moverAbajo(){
 		self.image("DownPlayer.png")
+		self.direccion(abajo)
 		self.energia(self.energia() - 1)
 		if (self.position().y() == 0){
 			position = game.at(self.position().x(),game.height() - 1)
@@ -34,6 +38,7 @@ object player {
 	}
 	method moverIzquierda(){
 		self.image("LeftPlayer.png")
+		self.direccion(izquierda)
 		self.energia(self.energia() - 1)
 		if (self.position().x() == 0 ){
 			position = game.at(game.width() - 1,self.position().y())
@@ -44,6 +49,7 @@ object player {
 	}
 	method moverDerecha(){
 		self.image("RightPlayer.png")
+		self.direccion(derecha)
 		self.energia(self.energia() - 1)
 		if (self.position().x() == game.width() - 1){
 			position = game.at(0,self.position().y())
@@ -77,6 +83,10 @@ object player {
 		if (elemento == craneo1 or elemento == craneo2){
 			self.danio()
 		}
+	}
+	
+	method empuja(elemento){
+		elemento.movete(direccion)
 	}
 	
 }

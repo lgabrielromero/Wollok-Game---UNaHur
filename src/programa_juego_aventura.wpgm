@@ -17,5 +17,6 @@ program juego_aventura {
 	game.whenCollideDo(player, { elemento => 
 		player.colision(elemento)
 	})
+	game.whenCollideDo(player, { e => player.empuja(e) })
 	game.start()
 }
