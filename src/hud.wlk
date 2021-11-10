@@ -2,7 +2,7 @@ import wollok.game.*
 import personajes.*
 object barraDeVidas {
 	var property image = "4_vidas.png"
-	var property position = game.at(0,9)
+	var property position = game.at(0,game.height() - 1)
 	
 	method vida() {return player.vida()}
 	

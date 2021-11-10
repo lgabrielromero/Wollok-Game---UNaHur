@@ -5,18 +5,17 @@ import personajes.*
 program juego_aventura {
 
 	game.title("Skeleton Nightmare")
-	game.height(10)
-	game.width(11)
-	game.cellSize(50)
+	game.height(15)
+	game.width(15)
+	game.cellSize(40)
 	game.boardGround("fondoBlanco.png")
 
 	nivelBloques.configurate()	
 	player.movimientos()
-	game.onTick(2000, "movimientoRandom", { craneo1.mover() })
-	game.onTick(2000, "movimientoRandom", { craneo2.mover() })
-	game.whenCollideDo(player, { elemento => 
-		player.colision(elemento)
-	})
-	game.whenCollideDo(player, { e => player.empuja(e) })
+	game.onTick(1500, "movimientoRandom", { craneo1.mover() })
+	game.onTick(1500, "movimientoRandom", { craneo2.mover() })
+	game.onTick(500, "movimientoCorto", { esqueleto1.mover() })
+	game.onTick(500, "movimientoCorto", { esqueleto2.mover() })
+	game.whenCollideDo(player, { elemento =>player.colision(elemento)})
 	game.start()
 }
