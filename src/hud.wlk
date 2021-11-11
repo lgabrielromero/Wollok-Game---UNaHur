@@ -24,15 +24,3 @@ object barraDeVidas {
 		}
 	}
 }
-
-///barra de energia///
-object barraDeEnergia{
-	var property image = "barraEnergia.png"
-	method position()= game.at(10,game.height() - 1)
-}
- 
-object marcador{
-	
-	method position()= game.at(10,game.height() - 1)
-	method text()= player.energia()
-}
