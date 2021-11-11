@@ -25,9 +25,14 @@ object nivelBloques {
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
 		borde.addBordeCompleto()
 		game.addVisual(new Wall(position= game.center().up(1).left(1)))
+		
 		//comidas
 		game.addVisual(Ham1)
 		game.addVisual(Coquita1)
+		game.addVisual(Ham2)
+		game.addVisual(Coquita2)
+		game.addVisual(Ham3)
+		game.addVisual(Coquita3)
 		// Enemigos
 		game.addVisual(craneo1)
 		game.addVisual(esqueleto1)
