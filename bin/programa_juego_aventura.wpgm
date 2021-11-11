@@ -2,7 +2,7 @@ import wollok.game.*
 import nivel1.*
 import personajes.*
 import elementos.*
-
+import direcciones.*
 program juego_aventura {
 
 	game.title("Skeleton Nightmare")

@@ -1,7 +1,7 @@
 import wollok.game.*
 import elementos.*
 import hud.*
-
+import direcciones.*
 
 
 
@@ -200,10 +200,15 @@ class Esqueleto inherits Enemigo{
 ////////////////////
 
 class Craneo inherits Enemigo{
-	
+	method direccionMasConveniente(direcciones) = direcciones.min{ direccion => direccion.siguiente(self.position()).distance(player.position()) }
+	method direcciones() = [ izquierda, arriba, abajo, derecha ]
+	method moverHaciaJugador() {
+		
+		position =  self.direccionMasConveniente(self.direcciones()).siguiente(position)
+		
+	}
 	override method mover(){
-		position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 2))
-		self.cambiarDireccionImg()
+		game.onTick(1000, "perseguir" , { self.moverHaciaJugador()})
 	}
 	
 	override method cambiarDireccionImg(){

@@ -4,6 +4,7 @@ import personajes.*
 import elementos.*
 import nivel2.*
 import hud.*
+import direcciones.*
 
 
 object nivelBloques {
