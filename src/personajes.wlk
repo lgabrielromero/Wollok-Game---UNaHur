@@ -79,7 +79,7 @@ object player {
 	
 	method danio(){
 	if (self.vida() == 1){
-		
+		self.restaEnergia(15)
 		}
 	else{
 		self.vida(vida-1)
@@ -99,6 +99,19 @@ object player {
 	method agarrarMoneda(){
 		self.monedas(self.monedas() + 1)
 	}
+	
+	method sumaEnergia(cantidad) { energia += cantidad }
+
+	method restaEnergia(cantidad) {
+		if (cantidad > energia)
+			throw new Exception(message = "No tengo suficiente energia")
+		energia -= cantidad
+	}
+	
+	method comer(unaComida){
+		self.sumaEnergia(unaComida.energiaQueAporta())		
+	}
+	
 	
 }
 
