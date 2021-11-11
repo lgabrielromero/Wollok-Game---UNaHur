@@ -74,7 +74,7 @@ object player {
 	
 	method danio(){
 	if (self.vida() == 1){
-		game.stop()
+		
 		}
 	else{
 		self.vida(vida-1)
@@ -136,13 +136,12 @@ class Enemigo{
 ////////////////////
 
 class Esqueleto inherits Enemigo{
-	
+	method random(){return new Range(start =1,end=4).anyOne()}
 	override method mover(){
-		var random = (1.. 5).anyOne()
-		if (random == 1){self.moverArriba()}
-		else if (random == 2){self.moverAbajo()}
-		else if (random == 3){self.moverIzquierda()}
-		else if (random == 4){self.moverDerecha()}
+		if (self.random() == 1){self.moverArriba()}
+		else if (self.random() == 2){self.moverAbajo()}
+		else if (self.random() == 3){self.moverIzquierda()}
+		else if (self.random() == 4){self.moverDerecha()}
 		else{self.cambiarDireccionImg()}
 	}
 	

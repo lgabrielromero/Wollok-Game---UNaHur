@@ -63,38 +63,57 @@ class Barril {
 	var property position
 	const property image = "Barril.png"
 	method SePuedeMover() = true
+	
+	method validarLugarLibre(direccion){
+		const alLado = direccion.siguiente(position)
+		return game.getObjectsIn(alLado).all{ obj => obj.esAtravesable()}
+		
+	
+	}
 	method movete(direccion){
-		position = direccion.siguiente(position)
+		if(self.validarLugarLibre(direccion)){
+			position = direccion.siguiente(position)
+		}
+		
 	}
 	method colisionAccion(){
+		
 		self.movete(player.direccion())
 	}
+	
 }
 
 
+// PARED (Los objetos no pueden atravesarlo)
+class Wall{
+	var property position
+	const property image = "WALL.png"
+	method esAtravesable() = false
+	method colisionAccion(){}
+}
 
 // PRUEBA (CREAR LUEGO UN ARCHIVO CON DIRECCIONES)
 class Direccion {
 	method siguiente(position)
-	method opuesto()
+	
 }
 
 object izquierda inherits Direccion { 
 	override method siguiente(position) = position.left(1) 
-	override method opuesto() = derecha
+	
 }
 
 object derecha inherits Direccion { 
 	override method siguiente(position) = position.right(1) 
-	override method opuesto() = izquierda
+	
 }
 
 object abajo inherits Direccion { 
 	override method siguiente(position) = position.down(1) 
-	override method opuesto() = arriba
+	
 }
 
 object arriba inherits Direccion { 
 	override method siguiente(position) = position.up(1) 
-	override method opuesto() = abajo
+	
 }
