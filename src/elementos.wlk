@@ -33,24 +33,6 @@ class Moneda {
 	}
 }
 
-////////////////////////////////////
-////comida y bebida, dan energía////
-///////////////////////////////////
-
-class ComidaYBebida{
-	var property energiaQueAporta
-	var property image
-    var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
-
-    method colisionAccion(){
-    	player.comer(unaComida)
-    	game.removeVisual(self)
-    }
-}
-
-const Ham1 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita1 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
-
 
 
 ////////////////////
