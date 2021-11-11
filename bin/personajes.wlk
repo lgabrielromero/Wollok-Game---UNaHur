@@ -208,7 +208,7 @@ class Craneo inherits Enemigo{
 		
 	}
 	override method mover(){
-		game.onTick(1000, "perseguir" , { self.moverHaciaJugador()})
+		
 	}
 	
 	override method cambiarDireccionImg(){
@@ -222,6 +222,5 @@ class Craneo inherits Enemigo{
 }
 
 const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png")
-const craneo2 = new Craneo(image = "LeftFloatingSkeleton.png")
 const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
 const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")

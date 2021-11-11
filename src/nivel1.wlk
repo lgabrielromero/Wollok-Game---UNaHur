@@ -24,7 +24,6 @@ object nivelBloques {
 		game.addVisual(new Wall(position= game.center().up(1).left(1)))
 		// Enemigos
 		game.addVisual(craneo1)
-		game.addVisual(craneo2)
 		game.addVisual(esqueleto1)
 		game.addVisual(esqueleto2)
 		// personaje, es importante que sea el último visual que se agregue
