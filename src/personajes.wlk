@@ -79,7 +79,7 @@ object player {
 	
 	method danio(){
 	if (self.vida() == 1){
-		
+		self.restaEnergia(15)
 		}
 	else{
 		self.vida(vida-1)
