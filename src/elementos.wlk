@@ -62,13 +62,11 @@ class Puerta {
 class Barril {
 	var property position
 	const property image = "Barril.png"
-	method SePuedeMover() = true
-	
+	var property esAtravesable = false
 	method validarLugarLibre(direccion){
 		const alLado = direccion.siguiente(position)
 		return game.getObjectsIn(alLado).all{ obj => obj.esAtravesable()}
 		
-	
 	}
 	method movete(direccion){
 		if(self.validarLugarLibre(direccion)){
@@ -83,12 +81,4 @@ class Barril {
 	
 }
 
-
-// PARED (Los objetos no pueden atravesarlo)
-class Wall{
-	var property position
-	const property image = "WALL.png"
-	method esAtravesable() = false
-	method colisionAccion(){}
-}
 

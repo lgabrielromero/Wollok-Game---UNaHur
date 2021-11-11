@@ -18,7 +18,12 @@ object player {
 	var property direccion = null
 	var property llaves = 0
 	var property monedas = 0
-	
+	method esAtravesable() = false
+	method validarLugarLibre(){
+		const alLado = self.direccion().siguiente(position)
+		return game.getObjectsIn(alLado).all{ obj => obj.esAtravesable()}
+		
+	}
 	method moverArriba(){
 		self.image("UpPlayer.png")
 		self.direccion(arriba)

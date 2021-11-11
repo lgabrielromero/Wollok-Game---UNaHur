@@ -5,7 +5,7 @@ import elementos.*
 import nivel2.*
 import hud.*
 import direcciones.*
-
+import paredes.*
 
 object nivelBloques {
 
@@ -21,6 +21,7 @@ object nivelBloques {
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
+		borde.addBordeCompleto()
 		game.addVisual(new Wall(position= game.center().up(1).left(1)))
 		// Enemigos
 		game.addVisual(craneo1)
