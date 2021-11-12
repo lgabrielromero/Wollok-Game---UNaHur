@@ -33,7 +33,7 @@ object paleta {
  
 object marcador{
 	
-	method position()= game.at(10,game.height() - 1.1)
+	method position()= game.at(10,game.height() - 1)
 	method image()="barraEnergia.png"
 	method text() = "E:"+player.energia()
 	method textColor() = paleta.rojo()
