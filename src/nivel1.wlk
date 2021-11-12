@@ -27,13 +27,15 @@ object nivelBloques {
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
+		//pocion revitalizadora//
+		game.addVisual(pocion1)
 		//comidas
-		game.addVisual(Ham1)
-		game.addVisual(Coquita1)
-		game.addVisual(Ham2)
-		game.addVisual(Coquita2)
-		game.addVisual(Ham3)
-		game.addVisual(Coquita3)
+		game.addVisual(comida1)
+		game.addVisual(comida2)
+		game.addVisual(comida3)
+		game.addVisual(bebida1)
+		game.addVisual(bebida2)
+		game.addVisual(bebida3)
 		// Enemigos
 		game.addVisual(craneo1)
 		game.addVisual(esqueleto1)
