@@ -4,12 +4,10 @@ import wollok.game.*
 class Wall{
 	var property position
 	const property image = "WALL.png"
+	const property tipo = "muro"
 	method esAtravesable() = false
 	method colisionAccion(){}
-	method validarLugarLibre(){
-		return true
-		
-	}
+	method validarLugarLibre(){return true}
 }
 
 object borde {

@@ -1,6 +1,7 @@
 import wollok.game.*
 
 class Fondo {
+	const property tipo = "fondo"
 	const property position = game.at(0, 0)
 	const property image
 	method esAtravesable() = true
@@ -9,4 +10,5 @@ class Fondo {
 		return true
 	}
 	method validarLugarLibre(){return true}
+	
 }

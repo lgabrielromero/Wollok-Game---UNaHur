@@ -16,6 +16,7 @@ object nivelBloques {
 		const ost = game.sound("backgroundOST.mp3")
 		ost.shouldLoop(true)
 		game.schedule(500, { ost.play()} )
+		
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
 		game.addVisual(barraDeVidas)

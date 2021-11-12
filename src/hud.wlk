@@ -1,6 +1,7 @@
 import wollok.game.*
 import personajes.*
 object barraDeVidas {
+	const property tipo = "interface"
 	var property image = "4_vidas.png"
 	var property position = game.at(0,game.height() - 1)
 	method validarMovimiento(){return true}
@@ -26,6 +27,7 @@ object barraDeVidas {
 ///barra de energia///
  
 object barraDeEnergia{
+	const property tipo = "interface"
 	var property image ="energy_4.png"
 	method position()= game.at(12,game.height() - 1)
 	method validarMovimiento(){return true}

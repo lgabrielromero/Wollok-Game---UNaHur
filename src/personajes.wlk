@@ -91,6 +91,7 @@ object player {
 	keyboard.right().onPressDo({ self.moverDerecha() })
 	keyboard.up().onPressDo({ self.moverArriba() })
 	keyboard.down().onPressDo({ self.moverAbajo() })
+	keyboard.space().onPressDo({ self.agarrar() })
 	}
 	
 	method danio(){
@@ -106,6 +107,9 @@ object player {
 	
 	method colision(elemento){
 		elemento.colisionAccion()
+	}
+	method colision2(elemento){
+		elemento.colisionAccion2()
 	}
 	
 	method agarrarLlave(){
@@ -124,9 +128,24 @@ object player {
 		energia -= cantidad
 	}
 	
-	method comer(unaComida){
-		self.sumaEnergia(unaComida.energiaQueAporta())		
+	
+	// Valida la accion de Agarrar Objetos ( Por alguna razón no funciona con All, preguntarle al profesor)
+	method puedeAgarrar(){
+		
+		const alLado = self.direccion().siguiente(position)
+		return game.getObjectsIn(alLado).any{ obj => obj.tipo() == "consumible"}
+		
 	}
+	method agarrar(){
+		const alLado = self.direccion().siguiente(position)
+		
+		if(self.puedeAgarrar()) {
+			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "consumible"}).consumir()	
+		}
+		
+		
+	}
+	
 	
 }
 
@@ -144,6 +163,7 @@ class Enemigo{
 	var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
 	var property image
 	var property esAtravesable = false
+	const property tipo = "enemigo"
 	var property direccion = null
 	method colisionAccion(){
 		if (self.position() == game.center()){
