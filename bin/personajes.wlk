@@ -18,7 +18,7 @@ object player {
 	var property direccion = null
 	var property llaves = 0
 	var property monedas = 0
-	method esAtravesable() = false
+	method esAtravesable() = true
 	method validarLugarLibre(){
 		const alLado = self.direccion().siguiente(position)
 		return game.getObjectsIn(alLado).all{ obj => obj.validarLugarLibre()}
