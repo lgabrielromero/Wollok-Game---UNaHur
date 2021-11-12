@@ -4,6 +4,7 @@ import personajes.*
 import elementos.*
 import direcciones.*
 import paredes.*
+import utilidades.*
 program juego_aventura {
 
 	game.title("Skeleton Nightmare")
@@ -14,9 +15,7 @@ program juego_aventura {
 
 	nivelBloques.configurate()	
 	player.movimientos()
-	game.onTick(800, "perseguir" , { craneo1.moverHaciaJugador()})
-	game.onTick(500, "movimientoCorto", { esqueleto1.mover() })
-	game.onTick(500, "movimientoCorto", { esqueleto2.mover() })
+	utilidadesParaJuego.iniciarMovimientosAutomaticos()
 	game.whenCollideDo(player, { elemento => player.colision(elemento)})
 	game.start()
 }

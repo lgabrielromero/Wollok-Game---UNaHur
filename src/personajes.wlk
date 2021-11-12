@@ -2,6 +2,7 @@ import wollok.game.*
 import elementos.*
 import hud.*
 import direcciones.*
+import utilidades.*
 
 
 
@@ -101,8 +102,20 @@ object player {
 	else{
 		self.vida(vida-1)
 		game.sound("dmg.mp3").play()
+		utilidadesParaJuego.pausarMovimientosAutomaticos(2000)
+		self.moverPorGolpe()
 		}
 	barraDeVidas.barra()
+	}
+	
+	method moverPorGolpe(){ 
+		if(self.position().x() == 0){
+			self.position(game.at(self.position().x() + 1, self.position().y()))
+		}
+		else{
+			self.position(game.at(self.position().x() - 1, self.position().y()))
+		}
+		
 	}
 	
 	method colision(elemento){
@@ -130,17 +143,34 @@ object player {
 	
 	
 	// Valida la accion de Agarrar Objetos ( Por alguna razón no funciona con All, preguntarle al profesor)
+	
+	method consumibleEnfrente(){
+		var objetoEnfrente = null
+		const alLado = self.direccion().siguiente(position)
+		if(game.getObjectsIn(alLado).any{ obj => obj.tipo() == "consumible"}){
+			objetoEnfrente = "consumible"
+		}
+		else{
+			objetoEnfrente = "item"
+		}
+		return objetoEnfrente
+		
+	}
+	
 	method puedeAgarrar(){
 		
 		const alLado = self.direccion().siguiente(position)
-		return game.getObjectsIn(alLado).any{ obj => obj.tipo() == "consumible"}
+		return game.getObjectsIn(alLado).any{ obj => obj.tipo() == "consumible" or obj.tipo() == "item"}
 		
 	}
 	method agarrar(){
 		const alLado = self.direccion().siguiente(position)
 		
-		if(self.puedeAgarrar()) {
+		if(self.puedeAgarrar() and self.consumibleEnfrente() == "consumible") {
 			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "consumible"}).consumir()	
+		}
+		else if(self.puedeAgarrar() and self.consumibleEnfrente() == "item"){
+			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "item"}).recoger()
 		}
 		
 		
@@ -166,12 +196,6 @@ class Enemigo{
 	const property tipo = "enemigo"
 	var property direccion = null
 	method colisionAccion(){
-		if (self.position() == game.center()){
-			player.position(game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1)))
-		}
-		else{
-			player.position(game.center())
-		}
 		player.danio()
 	}
 	

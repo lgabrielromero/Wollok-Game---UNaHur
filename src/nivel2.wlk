@@ -6,7 +6,7 @@ object nivelLlaves {
 
 	method configurate() {
 		// fondo - es importante que sea el primer visual que se agregue
-		game.addVisual(new Fondo(image="fondoCompleto.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
 				 
 		// otros visuals, p.ej. bloques o llaves
 			
@@ -27,7 +27,7 @@ object nivelLlaves {
 		// game.clear() limpia visuals, teclado, colisiones y acciones
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
-		game.addVisual(new Fondo(image="fondoCompleto.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()
