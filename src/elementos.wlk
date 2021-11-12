@@ -140,11 +140,29 @@ class ComidaYBebida{
    
 }
 
-const Ham1 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita1 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
-const Ham2 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita2 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
-const Ham3 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita3 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
+const comida1 = new ComidaYBebida(energiaQueAporta=20,image = "pata.png")
+const comida2 = new ComidaYBebida(energiaQueAporta=5,image = "costilla.png")
+const comida3 = new ComidaYBebida(energiaQueAporta=20,image = "carne.png")
+const bebida1 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
+const bebida2 = new ComidaYBebida(energiaQueAporta=20,image = "chop.png")
+const bebida3 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
 
+////POCION REVITALIZADORA///
+class Pocion{
+	var property energiaQueAporta
+	var property image
+    var property position = randomSinPisarse.colocar()
+	var property esAtravesable = false
+    const property tipo = "consumible"
+    
+    method validarLugarLibre(){
+		return false
+	}
+	method colisionAccion(){}
+	method consumir(){
+		player.sumaEnergia(self.energiaQueAporta())
+		game.removeVisual(self)
+	}
+}
 
+const pocion1= new Pocion (image= "pocion.png",energiaQueAporta=30)
