@@ -8,4 +8,5 @@ class Fondo {
 	method validarLugarLibre(direccion){
 		return true
 	}
+	method validarLugarLibre(){return true}
 }
