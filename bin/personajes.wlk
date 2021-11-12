@@ -283,6 +283,7 @@ class Esqueleto inherits Enemigo{
 ////////////////////
 
 class Craneo inherits Enemigo{
+	
 	method direccionMasConveniente(direcciones) = direcciones.min{ direccion => direccion.siguiente(self.position()).distance(player.position())}
 	method direcciones() = [ izquierda, arriba, abajo, derecha ]
 	method moverHaciaJugador() {
@@ -304,6 +305,6 @@ class Craneo inherits Enemigo{
 	}
 }
 
-const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png")
+const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,0))
 const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
 const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")
