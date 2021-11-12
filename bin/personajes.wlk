@@ -21,52 +21,64 @@ object player {
 	method esAtravesable() = false
 	method validarLugarLibre(){
 		const alLado = self.direccion().siguiente(position)
-		return game.getObjectsIn(alLado).all{ obj => obj.esAtravesable()}
+		return game.getObjectsIn(alLado).all{ obj => obj.validarLugarLibre()}
 		
 	}
 	method moverArriba(){
 		self.image("UpPlayer.png")
 		self.direccion(arriba)
-		self.energia(self.energia() - 1)
-		if (self.position().y() == game.height() - 2){
-			position = game.at(self.position().x(),0)
+		if(self.validarLugarLibre()){
+			self.energia(self.energia() - 1)
+			if (self.position().y() == game.height() - 2){
+				position = game.at(self.position().x(),0)
+			}
+			else{
+				position = position.up(1)
+			}
 		}
-		else{
-			position = position.up(1)
-		}
+		
 	}
 	method moverAbajo(){
 		self.image("DownPlayer.png")
 		self.direccion(abajo)
-		self.energia(self.energia() - 1)
-		if (self.position().y() == 0){
-			position = game.at(self.position().x(),game.height() - 2)
+		if(self.validarLugarLibre()){
+			self.energia(self.energia() - 1)
+			if (self.position().y() == 0){
+				position = game.at(self.position().x(),game.height() - 2)
+			}
+			else{
+				position = position.down(1)
+			}
 		}
-		else{
-			position = position.down(1)
-		}
+		
 	}
 	method moverIzquierda(){
 		self.image("LeftPlayer.png")
 		self.direccion(izquierda)
-		self.energia(self.energia() - 1)
-		if (self.position().x() == 0 ){
-			position = game.at(game.width() - 1,self.position().y())
+		if(self.validarLugarLibre()){
+			self.energia(self.energia() - 1)
+			if (self.position().x() == 0 ){
+				position = game.at(game.width() - 1,self.position().y())
+			}
+			else{
+				position = position.left(1)
+			}
 		}
-		else{
-			position = position.left(1)
-		}
+		
 	}
 	method moverDerecha(){
 		self.image("RightPlayer.png")
 		self.direccion(derecha)
-		self.energia(self.energia() - 1)
-		if (self.position().x() == game.width() - 1){
-			position = game.at(0,self.position().y())
+		if(self.validarLugarLibre()){
+			self.energia(self.energia() - 1)
+			if (self.position().x() == game.width() - 1){
+				position = game.at(0,self.position().y())
+			}
+			else{
+				position = position.right(1)
+			}
 		}
-		else{
-			position = position.right(1)
-		}
+		
 	}
 	
 	
@@ -115,7 +127,8 @@ object player {
 class Enemigo{
 	var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
 	var property image
-	
+	var property esAtravesable = false
+	var property direccion = null
 	method colisionAccion(){
 		if (self.position() == game.center()){
 			player.position(game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1)))
@@ -126,11 +139,13 @@ class Enemigo{
 		player.danio()
 	}
 	
+	method validarLugarLibre(){
+		return true
+	}
+	
 	method mover()
 	method cambiarDireccionImg()	
 }
-
-
 
 
 
@@ -150,39 +165,39 @@ class Esqueleto inherits Enemigo{
 		else{self.cambiarDireccionImg()}
 	}
 	
+	override method validarLugarLibre(){
+		const alLado = direccion.siguiente(position)
+		return game.getObjectsIn(alLado).all{ obj => obj.esAtravesable()}
+	}
 	method moverArriba(){
-		if (self.position().y() == game.height() - 2){
-			position = game.at(self.position().x(),0)
-		}
-		else{
+		self.direccion(arriba)
+		if (self.validarLugarLibre()){
 			position = position.up(1)
 		}
+		
 	}
 	method moverAbajo(){
-		if (self.position().y() == 0){
-			position = game.at(self.position().x(),game.height() - 2)
-		}
-		else{
+		self.direccion(abajo)
+		if (self.validarLugarLibre()){
 			position = position.down(1)
 		}
+		
 	}
 	method moverIzquierda(){
+		self.direccion(izquierda)
 		self.image("LeftSkeleton.png")
-		if (self.position().x() == 0 ){
-			position = game.at(game.width() - 1,self.position().y())
-		}
-		else{
+		if (self.validarLugarLibre() ){
 			position = position.left(1)
 		}
+		
 	}
 	method moverDerecha(){
+		self.direccion(derecha)
 		self.image("RightSkeleton.png")
-		if (self.position().x() == game.width() - 1){
-			position = game.at(0,self.position().y())
-		}
-		else{
+		if (self.validarLugarLibre()){
 			position = position.right(1)
 		}
+		
 	}
 	
 	override method cambiarDireccionImg(){

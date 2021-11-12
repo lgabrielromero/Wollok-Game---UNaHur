@@ -9,7 +9,7 @@ program juego_aventura {
 	game.title("Skeleton Nightmare")
 	game.height(15)
 	game.width(15)
-	game.cellSize(40)
+	game.cellSize(50)
 	game.boardGround("fondoBlanco.png")
 
 	nivelBloques.configurate()	

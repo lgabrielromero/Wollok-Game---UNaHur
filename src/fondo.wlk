@@ -5,4 +5,7 @@ class Fondo {
 	const property image
 	method esAtravesable() = true
 	method colisionAccion(){}
+	method validarLugarLibre(direccion){
+		return true
+	}
 }
