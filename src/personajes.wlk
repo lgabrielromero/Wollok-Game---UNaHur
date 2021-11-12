@@ -112,6 +112,18 @@ object player {
 		self.monedas(self.monedas() + 1)
 	}
 	
+	method sumaEnergia(cantidad) { energia += cantidad }
+
+	method restaEnergia(cantidad) {
+		if (cantidad > energia)
+			throw new Exception(message = "No tengo suficiente energia")
+		energia -= cantidad
+	}
+	
+	method comer(unaComida){
+		self.sumaEnergia(unaComida.energiaQueAporta())		
+	}
+	
 }
 
 
