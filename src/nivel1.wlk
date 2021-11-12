@@ -11,7 +11,7 @@ object nivelBloques {
 
 	method configurate() {
 		// fondo - es importante que sea el primer visual que se agregue
-		//game.addVisual(new Fondo(image="dungeonwall.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
 		// Soundtrack del nivel 
 		const ost = game.sound("backgroundOST.mp3")
 		ost.shouldLoop(true)
