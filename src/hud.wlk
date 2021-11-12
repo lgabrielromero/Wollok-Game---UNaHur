@@ -24,3 +24,17 @@ object barraDeVidas {
 		}
 	}
 }
+///barra de energia///
+
+object paleta {
+	const property verde = "00FF00FF"
+	const property rojo = "FF0000FF"
+}
+ 
+object marcador{
+	
+	method position()= game.at(10,game.height() - 1.1)
+	method image()="barraEnergia.png"
+	method text() = "E:"+player.energia()
+	method textColor() = paleta.rojo()
+}
