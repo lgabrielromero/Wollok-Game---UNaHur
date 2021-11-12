@@ -93,7 +93,7 @@ class Barril {
 class ComidaYBebida{
 	var property energiaQueAporta
 	var property image
-        var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
+    var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
 	var property esAtravesable = false
     
     method validarLugarLibre(){

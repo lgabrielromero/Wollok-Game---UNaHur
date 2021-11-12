@@ -3,9 +3,8 @@ import personajes.*
 object barraDeVidas {
 	var property image = "4_vidas.png"
 	var property position = game.at(0,game.height() - 1)
-	
+	method validarMovimiento(){return true}
 	method vida() {return player.vida()}
-	
 	method barra(){
 		if (self.vida() == 4) {
 			self.image("4_vidas.png")
@@ -25,16 +24,32 @@ object barraDeVidas {
 	}
 }
 ///barra de energia///
-
-object paleta {
-	const property verde = "00FF00FF"
-	const property rojo = "FF0000FF"
-}
  
-object marcador{
+object barraDeEnergia{
+	var property image ="energy_4.png"
+	method position()= game.at(12,game.height() - 1)
+	method validarMovimiento(){return true}
+	method energia(){return player.energia()}
 	
-	method position()= game.at(10,game.height() - 1)
-	method image()="barraEnergia.png"
-	method text() = "E:"+player.energia()
-	method textColor() = paleta.rojo()
+	
+	method barra(){
+		
+		if (self.energia() >= 30) {
+			self.image("energy_4.png")
+		}
+		else if(self.energia().between(20,30)) {
+			self.image("energy_3.png")
+		}
+		else if(self.energia().between(10,20)){
+			self.image("energy_2.png")
+		}
+		else if(self.energia().between(1,10)){
+			self.image("energy_1.png")
+		}
+		else if(self.energia() <= 0){
+			self.image("energy_0.png")
+		}
+		
+	}
+	
 }

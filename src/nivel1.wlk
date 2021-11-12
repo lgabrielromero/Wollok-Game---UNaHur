@@ -19,7 +19,7 @@ object nivelBloques {
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
 		game.addVisual(barraDeVidas)
-		game.addVisual(marcador)
+		game.addVisual(barraDeEnergia)
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))

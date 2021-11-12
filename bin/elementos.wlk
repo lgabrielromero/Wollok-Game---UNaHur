@@ -34,7 +34,6 @@ class Moneda {
 }
 
 
-
 ////////////////////
 //////PUERTA////////
 ////////////////////
@@ -86,5 +85,32 @@ class Barril {
 	}
 	
 }
+
+////////////////////////////////////
+////comida y bebida, dan energía////
+///////////////////////////////////
+
+class ComidaYBebida{
+	var property energiaQueAporta
+	var property image
+    var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
+	var property esAtravesable = false
+    
+    method validarLugarLibre(){
+		return true
+	}
+
+    method colisionAccion(){
+    	player.comer(self)
+    	game.removeVisual(self)
+    }
+}
+
+const Ham1 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
+const Coquita1 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
+const Ham2 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
+const Coquita2 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
+const Ham3 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
+const Coquita3 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
 
 

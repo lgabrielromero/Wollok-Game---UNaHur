@@ -29,6 +29,7 @@ object player {
 		self.direccion(arriba)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			barraDeEnergia.barra()
 			if (self.position().y() == game.height() - 2){
 				position = game.at(self.position().x(),0)
 			}
@@ -43,6 +44,7 @@ object player {
 		self.direccion(abajo)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			barraDeEnergia.barra()
 			if (self.position().y() == 0){
 				position = game.at(self.position().x(),game.height() - 2)
 			}
@@ -57,6 +59,7 @@ object player {
 		self.direccion(izquierda)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			barraDeEnergia.barra()
 			if (self.position().x() == 0 ){
 				position = game.at(game.width() - 1,self.position().y())
 			}
@@ -71,6 +74,7 @@ object player {
 		self.direccion(derecha)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			barraDeEnergia.barra()
 			if (self.position().x() == game.width() - 1){
 				position = game.at(0,self.position().y())
 			}
@@ -155,6 +159,7 @@ class Enemigo{
 		return true
 	}
 	
+	method muerte(){}
 	method mover()
 	method cambiarDireccionImg()	
 }
