@@ -4,6 +4,7 @@ object barraDeVidas {
 	const property tipo = "interface"
 	var property image = "4_vidas.png"
 	var property position = game.at(0,game.height() - 1)
+	method validarLugarLibre(){return true}
 	method validarMovimiento(){return true}
 	method vida() {return player.vida()}
 	method barra(){
@@ -29,6 +30,7 @@ object barraDeVidas {
 object barraDeEnergia{
 	const property tipo = "interface"
 	var property image ="energy_4.png"
+	method validarLugarLibre(){return true}
 	method position()= game.at(12,game.height() - 1)
 	method validarMovimiento(){return true}
 	method energia(){return player.energia()}

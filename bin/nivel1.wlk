@@ -19,6 +19,7 @@ object nivelBloques {
 		
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
+		game.addVisual(new PisoTeletransporta(position = game.at(0,0)))
 		game.addVisual(barraDeVidas)
 		game.addVisual(barraDeEnergia)
 		// otros visuals, p.ej. bloques o llaves
@@ -27,13 +28,15 @@ object nivelBloques {
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
 		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
+		//pocion revitalizadora//
+		game.addVisual(pocion1)
 		//comidas
-		game.addVisual(Ham1)
-		game.addVisual(Coquita1)
-		game.addVisual(Ham2)
-		game.addVisual(Coquita2)
-		game.addVisual(Ham3)
-		game.addVisual(Coquita3)
+		game.addVisual(comida1)
+		game.addVisual(comida2)
+		game.addVisual(comida3)
+		game.addVisual(bebida1)
+		game.addVisual(bebida2)
+		game.addVisual(bebida3)
 		// Enemigos
 		game.addVisual(craneo1)
 		game.addVisual(esqueleto1)
@@ -52,8 +55,10 @@ object nivelBloques {
 		// game.clear() limpia visuals, teclado, colisiones y acciones
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
-		game.addVisual(new Fondo(image="fondoCompleto.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
 		game.addVisual(player)
+		player.image("DownPlayer.png")
+		game.say(player, "Lo Logramos!!")
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()

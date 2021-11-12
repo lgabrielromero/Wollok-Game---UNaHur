@@ -19,6 +19,7 @@ object nivelBloques {
 		
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
+		game.addVisual(new PisoTeletransporta(position = game.at(0,0)))
 		game.addVisual(barraDeVidas)
 		game.addVisual(barraDeEnergia)
 		// otros visuals, p.ej. bloques o llaves

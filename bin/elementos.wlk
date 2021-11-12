@@ -2,6 +2,7 @@ import wollok.game.*
 import personajes.*
 import nivel1.*
 import direcciones.*
+import utilidades.*
 
 
 ////////////////////
@@ -15,12 +16,14 @@ class Llave {
 	const property image
 	const property tipo = "item" 	
 	var property esAtravesable = false
-	method colisionAccion(){
+		
+	method validarLugarLibre(){return false}
+	
+	method recoger(){
 		player.agarrarLlave()
 		game.removeVisual(self)
 	}
-	
-	method validarLugarLibre(){return true}
+	method colisionAccion(){}
 }
 
 class LlaveMaestra inherits Llave{
@@ -36,6 +39,7 @@ class Moneda {
 	var property position
 	const property image = "Coin.png"
 	const property tipo = "item"
+	var property esAtravesable = false
 	method colisionAccion(){
 		player.agarrarMoneda()
 		game.removeVisual(self)
@@ -63,15 +67,15 @@ class Puerta {
 			contadorDeVisitas +=1
 			game.say(player, "Parece que eran las llaves equivocadas!")
 			player.position(game.at(player.position().x(),player.position().y()-1))
-			game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
-			game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
-			game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
+			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
+			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
+			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
 		}
 		if (player.llaves() == 6 and self.contadorDeVisitas() == 1){
 			contadorDeVisitas +=1
 			player.position(game.at(player.position().x(),player.position().y()-1))
-			game.say(player, "Me falta una llave maestra! Donde estara?")
-			game.addVisual(new LlaveMaestra(image = "MasterKey.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
+			game.say(player, "Busquemos esa Llave Maestra!")
+			game.addVisual(new LlaveMaestra(image = "MasterKey2.png", position= randomSinPisarse.colocar()))
 			self.image("MasterDoor.png")
 		}
 		if (player.llaves() == 7 and self.contadorDeVisitas() == 2){
@@ -122,11 +126,11 @@ class Barril {
 class ComidaYBebida{
 	var property energiaQueAporta
 	var property image
-    var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
+    var property position = randomSinPisarse.colocar()
 	var property esAtravesable = false
     const property tipo = "consumible"
     method validarLugarLibre(){
-		return true
+		return false
 	}
 	method colisionAccion(){}
 	method consumir(){
@@ -137,11 +141,29 @@ class ComidaYBebida{
    
 }
 
-const Ham1 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita1 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
-const Ham2 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita2 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
-const Ham3 = new ComidaYBebida(energiaQueAporta=20,image = "HAM.png")
-const Coquita3 = new ComidaYBebida(energiaQueAporta=5,image = "Coquita.png")
+const comida1 = new ComidaYBebida(energiaQueAporta=20,image = "pata.png")
+const comida2 = new ComidaYBebida(energiaQueAporta=5,image = "costilla.png")
+const comida3 = new ComidaYBebida(energiaQueAporta=20,image = "carne.png")
+const bebida1 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
+const bebida2 = new ComidaYBebida(energiaQueAporta=20,image = "chop.png")
+const bebida3 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
 
+////POCION REVITALIZADORA///
+class Pocion{
+	var property energiaQueAporta
+	var property image
+    var property position = randomSinPisarse.colocar()
+	var property esAtravesable = false
+    const property tipo = "consumible"
+    
+    method validarLugarLibre(){
+		return false
+	}
+	method colisionAccion(){}
+	method consumir(){
+		player.sumaEnergia(self.energiaQueAporta())
+		game.removeVisual(self)
+	}
+}
 
+const pocion1= new Pocion (image= "pocion.png",energiaQueAporta=30)

@@ -133,12 +133,14 @@ object player {
 		self.monedas(self.monedas() + 1)
 	}
 	
-	method sumaEnergia(cantidad) { energia += cantidad }
+	method sumaEnergia(cantidad) { 
+		energia += cantidad
+		barraDeEnergia.barra()	
+	}
 
 	method restaEnergia(cantidad) {
-		if (cantidad > energia)
-			throw new Exception(message = "No tengo suficiente energia")
 		energia -= cantidad
+		barraDeEnergia.barra()	
 	}
 	
 	
@@ -167,7 +169,7 @@ object player {
 		const alLado = self.direccion().siguiente(position)
 		
 		if(self.puedeAgarrar() and self.consumibleEnfrente() == "consumible") {
-			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "consumible"}).consumir()	
+			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "consumible"}).consumir()
 		}
 		else if(self.puedeAgarrar() and self.consumibleEnfrente() == "item"){
 			game.getObjectsIn(alLado).find({cosa => cosa.tipo() == "item"}).recoger()
@@ -281,7 +283,7 @@ class Esqueleto inherits Enemigo{
 ////////////////////
 
 class Craneo inherits Enemigo{
-	method direccionMasConveniente(direcciones) = direcciones.min{ direccion => direccion.siguiente(self.position()).distance(player.position()) }
+	method direccionMasConveniente(direcciones) = direcciones.min{ direccion => direccion.siguiente(self.position()).distance(player.position())}
 	method direcciones() = [ izquierda, arriba, abajo, derecha ]
 	method moverHaciaJugador() {
 		

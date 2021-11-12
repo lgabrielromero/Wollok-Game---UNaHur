@@ -23,6 +23,7 @@ class Llave {
 		player.agarrarLlave()
 		game.removeVisual(self)
 	}
+	method colisionAccion(){}
 }
 
 class LlaveMaestra inherits Llave{
