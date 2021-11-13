@@ -36,15 +36,30 @@ class LlaveMaestra inherits Llave{
 ////////////////////
 
 class Moneda {
-	var property position
-	const property image = "Coin.png"
+	var property position= randomSinPisarse.colocar()
+	var property valor
 	const property tipo = "item"
 	var property esAtravesable = false
 	method colisionAccion(){
 		player.agarrarMoneda()
 		game.removeVisual(self)
 	}
+	method validarLugarLibre(){
+		return true
+	}
+	method image()= "moneda" + valor.toString() + "Coin.png"
 }
+ const moneda1=new Moneda (valor=5)
+ const moneda2=new Moneda (valor=10)
+ const moneda3=new Moneda (valor=20)
+ const moneda4=new Moneda (valor=5)
+ const moneda5=new Moneda (valor=10)
+ const moneda6=new Moneda (valor=20)
+ const moneda7=new Moneda (valor=5)
+ const moneda8=new Moneda (valor=10)
+ const moneda9=new Moneda (valor=20)
+ const moneda10=new Moneda(valor=30)
+
 
 
 ////////////////////
