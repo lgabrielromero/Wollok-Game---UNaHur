@@ -14,7 +14,7 @@ import utilidades.*
 object player {
 	var property position = game.center()
 	var property image = "RightPlayer.png"
-	var property vida = 4
+	var property vida = 99
 	var property energia = 30
 	var property direccion = null
 	var property llaves = 0
@@ -30,6 +30,7 @@ object player {
 		self.direccion(arriba)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			numeroEnergia.actualiza(self.energia())
 			barraDeEnergia.barra()
 			if (self.position().y() == game.height() - 2){
 				position = game.at(self.position().x(),0)
@@ -45,6 +46,7 @@ object player {
 		self.direccion(abajo)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			numeroEnergia.actualiza(self.energia())
 			barraDeEnergia.barra()
 			if (self.position().y() == 0){
 				position = game.at(self.position().x(),game.height() - 2)
@@ -61,6 +63,7 @@ object player {
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
 			barraDeEnergia.barra()
+			numeroEnergia.actualiza(self.energia())
 			if (self.position().x() == 0 ){
 				position = game.at(game.width() - 1,self.position().y())
 			}
@@ -76,6 +79,7 @@ object player {
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
 			barraDeEnergia.barra()
+			numeroEnergia.actualiza(self.energia())
 			if (self.position().x() == game.width() - 1){
 				position = game.at(0,self.position().y())
 			}
@@ -106,6 +110,7 @@ object player {
 		self.moverPorGolpe()
 		}
 	barraDeVidas.barra()
+	numeroVida.actualiza(self.vida())
 	}
 	
 	method moverPorGolpe(){ 
@@ -132,17 +137,20 @@ object player {
 	method agarrarMoneda(){
 		self.monedas(self.monedas() + 1)
 		vida -= 1
+		numeroVida.actualiza(self.vida())
 		barraDeVidas.barra()
 	}
 	
 	method sumaEnergia(cantidad) { 
-		energia += cantidad
-		barraDeEnergia.barra()	
+		energia = 99.min(energia + cantidad)
+		barraDeEnergia.barra()
+		numeroEnergia.actualiza(self.energia())
 	}
 
 	method restaEnergia(cantidad) {
-		energia -= cantidad
-		barraDeEnergia.barra()	
+		energia = 0.max(energia - cantidad)
+		barraDeEnergia.barra()
+		numeroEnergia.actualiza(self.energia())
 	}
 	
 	
@@ -203,9 +211,7 @@ class Enemigo{
 		player.danio()
 	}
 	
-	method validarLugarLibre(){
-		return true
-	}
+	method validarLugarLibre(){return true}
 	
 	method muerte(){}
 	method mover()

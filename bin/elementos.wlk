@@ -160,6 +160,7 @@ class ComidaYBebida{
 	method consumir(){
 		player.sumaEnergia(self.energiaQueAporta())
 		game.removeVisual(self)
+		
 	}
 
    

@@ -15,7 +15,9 @@ object nivelLlaves {
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 		borde.addBordeCompleto()
 		game.addVisual(barraDeVidas)
+		numeroVida.mostrar()
 		game.addVisual(barraDeEnergia)
+		numeroEnergia.mostrar()
 				 
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
