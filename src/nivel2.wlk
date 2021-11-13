@@ -1,6 +1,11 @@
-import wollok.game.*
+iimport wollok.game.*
 import fondo.*
 import personajes.*
+import elementos.*
+import nivel1.*
+import hud.*
+import direcciones.*
+import paredes.*
 
 object nivelLlaves {
 
@@ -9,7 +14,16 @@ object nivelLlaves {
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 				 
 		// otros visuals, p.ej. bloques o llaves
-			
+		game.addVisual(moneda1)
+	        game.addVisual(moneda2)
+		game.addVisual(moneda3)
+		game.addVisual(moneda4)
+		game.addVisual(moneda5)
+		game.addVisual(moneda6)
+		game.addVisual(moneda7)
+		game.addVisual(moneda8)
+		game.addVisual(moneda9)
+		game.addVisual(moneda10)	
 		// personaje, es importante que sea el último visual que se agregue
 	
 		
