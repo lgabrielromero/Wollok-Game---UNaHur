@@ -1,6 +1,7 @@
 import wollok.game.*
 import personajes.*
 import nivel1.*
+import nivel2.*
 import direcciones.*
 import utilidades.*
 
@@ -103,6 +104,14 @@ class Puerta {
 	}
 }
 
+class PuertaLvl2 inherits Puerta{
+	override method colisionAccion(){
+		if (player.monedas() == 10){
+			nivelLlaves.ganar()
+		}
+		
+	}
+}
 
 
 ////////////////////

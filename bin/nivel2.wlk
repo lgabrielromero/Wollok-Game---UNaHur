@@ -18,6 +18,7 @@ object nivelLlaves {
 		game.addVisual(barraDeEnergia)
 				 
 		// otros visuals, p.ej. bloques o llaves
+		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(moneda1)
 	    game.addVisual(moneda2)
 		game.addVisual(moneda3)
