@@ -1,4 +1,4 @@
-iimport wollok.game.*
+import wollok.game.*
 import fondo.*
 import personajes.*
 import elementos.*
@@ -10,12 +10,16 @@ import paredes.*
 object nivelLlaves {
 
 	method configurate() {
+		player.movimientos()
 		// fondo - es importante que sea el primer visual que se agregue
 		game.addVisual(new Fondo(image="dungeonwall.png"))
+		borde.addBordeCompleto()
+		game.addVisual(barraDeVidas)
+		game.addVisual(barraDeEnergia)
 				 
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(moneda1)
-	        game.addVisual(moneda2)
+	    game.addVisual(moneda2)
 		game.addVisual(moneda3)
 		game.addVisual(moneda4)
 		game.addVisual(moneda5)
@@ -25,8 +29,8 @@ object nivelLlaves {
 		game.addVisual(moneda9)
 		game.addVisual(moneda10)	
 		// personaje, es importante que sea el último visual que se agregue
-	
-		
+		game.addVisual(player)
+		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// teclado
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })

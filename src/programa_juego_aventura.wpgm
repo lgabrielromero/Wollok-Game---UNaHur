@@ -1,5 +1,6 @@
 import wollok.game.*
 import nivel1.*
+import nivel2.*
 import personajes.*
 import elementos.*
 import direcciones.*

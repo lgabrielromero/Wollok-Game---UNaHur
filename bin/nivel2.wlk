@@ -1,18 +1,36 @@
 import wollok.game.*
 import fondo.*
 import personajes.*
+import elementos.*
+import nivel1.*
+import hud.*
+import direcciones.*
+import paredes.*
 
 object nivelLlaves {
 
 	method configurate() {
+		player.movimientos()
 		// fondo - es importante que sea el primer visual que se agregue
-		game.addVisual(new Fondo(image="fondoCompleto.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
+		borde.addBordeCompleto()
+		game.addVisual(barraDeVidas)
+		game.addVisual(barraDeEnergia)
 				 
 		// otros visuals, p.ej. bloques o llaves
-			
+		game.addVisual(moneda1)
+	    game.addVisual(moneda2)
+		game.addVisual(moneda3)
+		game.addVisual(moneda4)
+		game.addVisual(moneda5)
+		game.addVisual(moneda6)
+		game.addVisual(moneda7)
+		game.addVisual(moneda8)
+		game.addVisual(moneda9)
+		game.addVisual(moneda10)	
 		// personaje, es importante que sea el último visual que se agregue
-	
-		
+		game.addVisual(player)
+		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// teclado
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
@@ -27,7 +45,7 @@ object nivelLlaves {
 		// game.clear() limpia visuals, teclado, colisiones y acciones
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
-		game.addVisual(new Fondo(image="fondoCompleto.png"))
+		game.addVisual(new Fondo(image="dungeonwall.png"))
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()

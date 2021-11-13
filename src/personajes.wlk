@@ -131,7 +131,8 @@ object player {
 	
 	method agarrarMoneda(){
 		self.monedas(self.monedas() + 1)
-		self.restaEnergia(1)
+		vida -= 1
+		barraDeVidas.barra()
 	}
 	
 	method sumaEnergia(cantidad) { 
