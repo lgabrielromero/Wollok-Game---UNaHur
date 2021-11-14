@@ -50,16 +50,7 @@ class Moneda {
 	}
 	method image()= "Coin.png"
 }
-const moneda1=new Moneda ()
-const moneda2=new Moneda ()
-const moneda3=new Moneda ()
-const moneda4=new Moneda ()
-const moneda5=new Moneda ()
-const moneda6=new Moneda ()
-const moneda7=new Moneda ()
-const moneda8=new Moneda ()
-const moneda9=new Moneda ()
-const moneda10=new Moneda()
+
 
 
 
@@ -147,7 +138,7 @@ class Barril {
 ////comida y bebida, dan energía////
 ///////////////////////////////////
 
-class ComidaYBebida{
+class Consumible{
 	var property energiaQueAporta
 	var property image
     var property position = randomSinPisarse.colocar()
@@ -166,29 +157,4 @@ class ComidaYBebida{
    
 }
 
-const comida1 = new ComidaYBebida(energiaQueAporta=20,image = "pata.png")
-const comida2 = new ComidaYBebida(energiaQueAporta=5,image = "costilla.png")
-const comida3 = new ComidaYBebida(energiaQueAporta=20,image = "carne.png")
-const bebida1 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
-const bebida2 = new ComidaYBebida(energiaQueAporta=20,image = "chop.png")
-const bebida3 = new ComidaYBebida(energiaQueAporta=5,image = "chop.png")
 
-////POCION REVITALIZADORA///
-class Pocion{
-	var property energiaQueAporta
-	var property image
-    var property position = randomSinPisarse.colocar()
-	var property esAtravesable = false
-    const property tipo = "consumible"
-    
-    method validarLugarLibre(){
-		return false
-	}
-	method colisionAccion(){}
-	method consumir(){
-		player.sumaEnergia(self.energiaQueAporta())
-		game.removeVisual(self)
-	}
-}
-
-const pocion1= new Pocion (image= "pocion.png",energiaQueAporta=30)

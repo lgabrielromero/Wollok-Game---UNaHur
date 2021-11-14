@@ -6,6 +6,7 @@ import nivel2.*
 import hud.*
 import direcciones.*
 import paredes.*
+import visuals.*
 
 object nivelBloques {
 
@@ -20,27 +21,16 @@ object nivelBloques {
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
 		game.addVisual(new PisoTeletransporta(position = game.at(0,0)))
-		game.addVisual(barraDeVidas)
-		game.addVisual(barraDeEnergia)
-		numeroEnergia.mostrar()
-		numeroVida.mostrar()
+		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
-		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
-		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
-		game.addVisual(new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))))
-		//pocion revitalizadora//
-		game.addVisual(pocion1)
-		//comidas
-		game.addVisual(comida1)
-		game.addVisual(comida2)
-		game.addVisual(comida3)
-		game.addVisual(bebida1)
-		game.addVisual(bebida2)
-		game.addVisual(bebida3)
+		llaveslvl1.agregar() 
+		
+		//Consumibles
+		consumiblesLvl1.agregar()
 		// Enemigos
-		game.addVisual(craneo1)
+		
 		game.addVisual(esqueleto1)
 		game.addVisual(esqueleto2)
 		// personaje, es importante que sea el último visual que se agregue

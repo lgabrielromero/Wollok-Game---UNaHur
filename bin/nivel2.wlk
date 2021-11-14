@@ -6,6 +6,8 @@ import nivel1.*
 import hud.*
 import direcciones.*
 import paredes.*
+import visuals.*
+import utilidades.*
 
 object nivelLlaves {
 
@@ -14,23 +16,14 @@ object nivelLlaves {
 		// fondo - es importante que sea el primer visual que se agregue
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 		borde.addBordeCompleto()
-		game.addVisual(barraDeVidas)
-		numeroVida.mostrar()
-		game.addVisual(barraDeEnergia)
-		numeroEnergia.mostrar()
-				 
+		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
-		game.addVisual(moneda1)
-	    game.addVisual(moneda2)
-		game.addVisual(moneda3)
-		game.addVisual(moneda4)
-		game.addVisual(moneda5)
-		game.addVisual(moneda6)
-		game.addVisual(moneda7)
-		game.addVisual(moneda8)
-		game.addVisual(moneda9)
-		game.addVisual(moneda10)	
+		monedaslvl2.agregar()
+		
+		// enemigos
+		game.addVisual(craneo1)
+		utilidadesParaJuego.iniciarMovimientosAutomaticos()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})

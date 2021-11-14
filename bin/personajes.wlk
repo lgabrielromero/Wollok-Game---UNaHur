@@ -3,7 +3,7 @@ import elementos.*
 import hud.*
 import direcciones.*
 import utilidades.*
-
+import visuals.*
 
 
 
@@ -104,7 +104,7 @@ object player {
 		
 		}
 	else{
-		self.vida(vida-1)
+		vida = 0.max(vida - 20)
 		game.sound("dmg.mp3").play()
 		utilidadesParaJuego.pausarMovimientosAutomaticos(2000)
 		self.moverPorGolpe()
@@ -131,12 +131,14 @@ object player {
 	}
 	
 	method agarrarLlave(){
-		self.llaves(self.llaves() + 1)
+		llaves = 99.min(llaves + 1)
+		numeroLlave.actualiza(self.llaves())
 	}
 	
 	method agarrarMoneda(){
-		self.monedas(self.monedas() + 1)
+		monedas = 99.min(monedas + 1)
 		vida -= 1
+		numeroMoneda.actualiza(self.monedas())
 		numeroVida.actualiza(self.vida())
 		barraDeVidas.barra()
 	}

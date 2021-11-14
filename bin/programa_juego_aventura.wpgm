@@ -6,6 +6,8 @@ import elementos.*
 import direcciones.*
 import paredes.*
 import utilidades.*
+import visuals.*
+
 program juego_aventura {
 
 	game.title("Skeleton Nightmare")

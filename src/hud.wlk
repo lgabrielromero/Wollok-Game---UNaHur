@@ -1,5 +1,9 @@
 import wollok.game.*
 import personajes.*
+import visuals.*
+
+
+
 
 
 
@@ -66,6 +70,7 @@ object barraDeEnergia{
 class Numeros{
 	const property tipo = "interface"
 	var property position = game.at(0,game.height() - 1)
+	method colisionAccion(){}
 	method validarLugarLibre(){return true}
 	method validarMovimiento(){return true}
 }
@@ -115,19 +120,6 @@ object numberConvert {
 		return "nro" + numero + ".png"
 	}
 }
-
-
-const unidadEnergia = new Unidad(elementoActual = player.energia(),position = game.at(12,game.height() - 1).left(1))
-const decenaEnergia = new Decena(elementoActual = player.energia(),position = game.at(12,game.height() - 1).left(2))
-const numeroEnergia = new Numero(decena = decenaEnergia, unidad = unidadEnergia)
-
-
-const unidadVida = new Unidad(elementoActual = player.vida(),position = game.at(0,game.height() - 1).right(1))
-const decenaVida = new Decena(elementoActual = player.vida(),position = game.at(0,game.height() - 1))
-const numeroVida = new Numero(decena = decenaVida, unidad = unidadVida)
-
-
-
 
 
 
