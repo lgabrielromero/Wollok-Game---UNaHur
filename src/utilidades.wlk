@@ -29,10 +29,10 @@ object utilidadesParaJuego {
 object randomSinPisarse{
 	method colocar(){
 		var posicionX = 0.randomUpTo(game.width() - 1)
-		var posicionY = 0.randomUpTo(game.height() - 1)
+		var posicionY = 2.randomUpTo(game.height() - 1)
 		if(game.getObjectsIn(game.at(posicionX, posicionY)).size() >= 1){
 			posicionX = 0.randomUpTo(game.width() - 1)
-			posicionY = 0.randomUpTo(game.height() - 1)
+			posicionY = 2.randomUpTo(game.height() - 1)
 		}
 		return game.at(posicionX, posicionY)
 		

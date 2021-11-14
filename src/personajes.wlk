@@ -4,6 +4,8 @@ import hud.*
 import direcciones.*
 import utilidades.*
 import visuals.*
+import nivel1.*
+import nivel2.*
 
 
 
@@ -19,25 +21,52 @@ object player {
 	var property direccion = null
 	var property llaves = 0
 	var property monedas = 0
+	var property nivel = 1
 	method esAtravesable() = true
 	method validarLugarLibre(){
 		const alLado = self.direccion().siguiente(position)
 		return game.getObjectsIn(alLado).all{ obj => obj.validarLugarLibre()}
 		
 	}
+	
+	method perderPorEnergia(){
+		if (self.nivel() == 1){nivelBloques.perderPorEnergia()}
+		else if (self.nivel() == 2){nivelLlaves.perderPorEnergia()}
+		else{nivelBonus.perderPorEnergia()}
+	}
+	
+	method perderPorVida(){
+		if (self.nivel() == 1){nivelBloques.perderPorVida()}
+		else if (self.nivel() == 2){nivelLlaves.perderPorVida()}
+		else{nivelBonus.perderPorVida()}
+	}
+	
+	method resetStats(){
+		self.vida(80)
+		self.energia(30)
+		self.direccion(null)
+		self.llaves(0)
+		self.monedas(0)
+		self.position(game.center())
+	}
+	
 	method moverArriba(){
 		self.image("UpPlayer.png")
 		self.direccion(arriba)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			if (self.energia() == 0){
+				self.perderPorEnergia()
+			}
+			else{
 			numeroEnergia.actualiza(self.energia())
 			barraDeEnergia.barra()
 			if (self.position().y() == game.height() - 2){
-				position = game.at(self.position().x(),0)
+				position = game.at(self.position().x(),1)
 			}
 			else{
 				position = position.up(1)
-			}
+			}}
 		}
 		
 	}
@@ -46,15 +75,19 @@ object player {
 		self.direccion(abajo)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			if (self.energia() == 0){
+				self.perderPorEnergia()
+			}
+			else{
 			numeroEnergia.actualiza(self.energia())
 			barraDeEnergia.barra()
-			if (self.position().y() == 0){
+			if (self.position().y() == 1){
 				position = game.at(self.position().x(),game.height() - 2)
 			}
 			else{
 				position = position.down(1)
 			}
-		}
+		}}
 		
 	}
 	method moverIzquierda(){
@@ -62,6 +95,10 @@ object player {
 		self.direccion(izquierda)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			if (self.energia() == 0){
+				self.perderPorEnergia()
+			}
+			else{
 			barraDeEnergia.barra()
 			numeroEnergia.actualiza(self.energia())
 			if (self.position().x() == 0 ){
@@ -70,7 +107,7 @@ object player {
 			else{
 				position = position.left(1)
 			}
-		}
+		}}
 		
 	}
 	method moverDerecha(){
@@ -78,6 +115,10 @@ object player {
 		self.direccion(derecha)
 		if(self.validarLugarLibre()){
 			self.energia(self.energia() - 1)
+			if (self.energia() == 0){
+				self.perderPorEnergia()
+			}
+			else{
 			barraDeEnergia.barra()
 			numeroEnergia.actualiza(self.energia())
 			if (self.position().x() == game.width() - 1){
@@ -86,7 +127,7 @@ object player {
 			else{
 				position = position.right(1)
 			}
-		}
+		}}
 		
 	}
 	
@@ -99,12 +140,12 @@ object player {
 	keyboard.space().onPressDo({ self.agarrar() })
 	}
 	
-	method danio(){
-	if (self.vida() == 1){
-		
+	method danio(danio){
+	if (self.vida() - danio <= 0){
+		self.perderPorVida()
 		}
 	else{
-		vida = 0.max(vida - 20)
+		self.vida(self.vida() - 20)
 		game.sound("dmg.mp3").play()
 		utilidadesParaJuego.pausarMovimientosAutomaticos(2000)
 		self.moverPorGolpe()
@@ -209,9 +250,7 @@ class Enemigo{
 	var property esAtravesable = false
 	const property tipo = "enemigo"
 	var property direccion = null
-	method colisionAccion(){
-		player.danio()
-	}
+	method colisionAccion()
 	
 	method validarLugarLibre(){return true}
 	
@@ -236,6 +275,10 @@ class Esqueleto inherits Enemigo{
 		else if (self.random() == 3){self.moverIzquierda()}
 		else if (self.random() == 4){self.moverDerecha()}
 		else{self.cambiarDireccionImg()}
+	}
+	
+	override method colisionAccion(){
+		player.danio(40)
 	}
 	
 	override method validarLugarLibre(){
@@ -303,6 +346,10 @@ class Craneo inherits Enemigo{
 	}
 	override method mover(){
 		
+	}
+	
+	override method colisionAccion(){
+		player.danio(20)
 	}
 	
 	override method cambiarDireccionImg(){

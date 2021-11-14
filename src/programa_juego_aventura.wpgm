@@ -16,9 +16,6 @@ program juego_aventura {
 	game.cellSize(50)
 	game.boardGround("fondoBlanco.png")
 
-	nivelBloques.configurate()	
-	player.movimientos()
-	utilidadesParaJuego.iniciarMovimientosAutomaticos()
-	game.whenCollideDo(player, { elemento => player.colision(elemento)})
+	nivelBloques.configurate()
 	game.start()
 }

@@ -28,6 +28,7 @@ object nivelLlaves {
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// teclado
+		player.nivel(2)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
 
@@ -53,6 +54,26 @@ object nivelLlaves {
 				game.stop()
 			})
 		})
+	}
+	
+	method perderPorVida() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinVida.png"))
+			game.schedule(3000, {
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
+	}
+	
+	method perderPorEnergia() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
+			game.schedule(3000, {
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
 	}
 	
 	
