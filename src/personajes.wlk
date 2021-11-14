@@ -22,23 +22,24 @@ object player {
 	var property llaves = 0
 	var property monedas = 0
 	var property nivel = 1
+	var property granadas = 0
 	method esAtravesable() = true
 	method validarLugarLibre(){
 		const alLado = self.direccion().siguiente(position)
-		return game.getObjectsIn(alLado).all{ obj => obj.validarLugarLibre()}
+		return game.getObjectsIn(alLado).all{ obj => obj.validarLugarLibre() and obj.tipo() != "enemigo"}
 		
 	}
 	
 	method perderPorEnergia(){
 		if (self.nivel() == 1){nivelBloques.perderPorEnergia()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorEnergia()}
-		else{nivelBonus.perderPorEnergia()}
+		//else{nivelBonus.perderPorEnergia()}
 	}
 	
 	method perderPorVida(){
 		if (self.nivel() == 1){nivelBloques.perderPorVida()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorVida()}
-		else{nivelBonus.perderPorVida()}
+		//else{nivelBonus.perderPorVida()}
 	}
 	
 	method resetStats(){
@@ -48,6 +49,12 @@ object player {
 		self.llaves(0)
 		self.monedas(0)
 		self.position(game.center())
+		numeroEnergia.actualiza(self.energia())
+		barraDeEnergia.barra()
+		barraDeVidas.barra()
+		numeroVida.actualiza(self.vida())
+		numeroLlave.actualiza(self.llaves())
+		numeroMoneda.actualiza(self.monedas())
 	}
 	
 	method moverArriba(){
@@ -138,6 +145,7 @@ object player {
 	keyboard.up().onPressDo({ self.moverArriba() })
 	keyboard.down().onPressDo({ self.moverAbajo() })
 	keyboard.space().onPressDo({ self.agarrar() })
+	keyboard.control().onPressDo({ lanzadora.lanzarGranada()})
 	}
 	
 	method danio(danio){
@@ -178,10 +186,22 @@ object player {
 	
 	method agarrarMoneda(){
 		monedas = 99.min(monedas + 1)
-		vida -= 1
+		vida -= 10
 		numeroMoneda.actualiza(self.monedas())
 		numeroVida.actualiza(self.vida())
 		barraDeVidas.barra()
+	}
+	method sumaGranada(cantidad){
+		granadas = 99.min(granadas + cantidad)
+		
+		
+	}
+	
+	method sumaVida(cantidad){
+		vida = 99.min(vida + cantidad)
+		barraDeVidas.barra()
+		numeroVida.actualiza(self.vida())
+		
 	}
 	
 	method sumaEnergia(cantidad) { 
@@ -232,9 +252,86 @@ object player {
 	}
 	
 	
+	
 }
 
-
+object lanzadora{
+	const property tipo = "ataque"
+	var property image = null
+	var property position
+	
+	method esEnemigo(x){
+		return game.getObjectsIn(x).any{ obj => obj.tipo() == "enemigo"}
+	}
+	method lanzarGranada(){
+		const espacio1 = player.direccion().siguiente(player.position())
+		const espacio2 = player.direccion().siguiente(espacio1)
+		const espacio3 = player.direccion().siguiente(espacio2)
+		if(self.esEnemigo(espacio1)){
+			position = espacio1
+			image = "BombaExplosion.png"
+			game.addVisual(self)
+			game.getObjectsIn(espacio1).find({cosa => cosa.tipo() == "enemigo"}).muerte()
+			game.schedule(100, { => game.removeVisual(self) })
+	
+		}
+		else if(self.esEnemigo(espacio2)){
+			position = espacio1
+			image = "BombaPrendida.png"
+			game.addVisual(self)
+			game.schedule(100, {
+				game.removeVisual(self)
+				game.getObjectsIn(espacio2).find({cosa => cosa.tipo() == "enemigo"}).muerte()
+				position = espacio2
+				image = "BombaExplosion.png"
+				game.addVisual(self)
+				game.schedule(100, { => game.removeVisual(self) })
+			})
+			
+		}
+		else if(self.esEnemigo(espacio3)){
+			position = espacio1
+			image = "BombaPrendida.png"
+			game.addVisual(self)
+			game.schedule(100,{
+				game.removeVisual(self)
+				position = espacio2
+				image = "BombaPrendida.png"
+				game.addVisual(self)
+				game.schedule(100, { => 
+					game.removeVisual(self)
+					game.getObjectsIn(espacio3).find({cosa => cosa.tipo() == "enemigo"}).muerte()
+					position = espacio3
+					image = "BombaExplosion.png"
+					game.addVisual(self)
+					game.schedule(100, { => game.removeVisual(self) })
+					
+				})
+			})
+		}
+		else {
+			position = espacio1
+			image = "BombaPrendida.png"
+			game.addVisual(self)
+			game.schedule(100,{
+				game.removeVisual(self)
+				position = espacio2
+				image = "BombaPrendida.png"
+				game.addVisual(self)
+				game.schedule(100, { => 
+					game.removeVisual(self)
+					position = espacio3
+					image = "BombaExplosion.png"
+					game.addVisual(self)
+					game.schedule(100, { => game.removeVisual(self) })
+					
+				})
+			})
+			
+		}
+	}
+	
+}
 
 
 
@@ -254,7 +351,9 @@ class Enemigo{
 	
 	method validarLugarLibre(){return true}
 	
-	method muerte(){}
+	method muerte(){
+		game.removeVisual(self)
+	}
 	method mover()
 	method cambiarDireccionImg()	
 }

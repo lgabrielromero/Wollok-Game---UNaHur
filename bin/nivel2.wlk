@@ -20,7 +20,7 @@ object nivelLlaves {
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		monedaslvl2.agregar()
-		
+		consumiblesLvl2.agregar()
 		// enemigos
 		game.addVisual(craneo1)
 		utilidadesParaJuego.iniciarMovimientosAutomaticos()
@@ -28,6 +28,7 @@ object nivelLlaves {
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// teclado
+		player.nivel(2)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
 
@@ -53,6 +54,26 @@ object nivelLlaves {
 				game.stop()
 			})
 		})
+	}
+	
+	method perderPorVida() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinVida.png"))
+			keyboard.enter().onPressDo({
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
+	}
+	
+	method perderPorEnergia() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
+			keyboard.enter().onPressDo({
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
 	}
 	
 	

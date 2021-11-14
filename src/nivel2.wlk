@@ -20,7 +20,7 @@ object nivelLlaves {
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		monedaslvl2.agregar()
-		
+		consumiblesLvl2.agregar()
 		// enemigos
 		game.addVisual(craneo1)
 		utilidadesParaJuego.iniciarMovimientosAutomaticos()
@@ -59,7 +59,7 @@ object nivelLlaves {
 	method perderPorVida() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinVida.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
 				self.configurate()
@@ -69,7 +69,7 @@ object nivelLlaves {
 	method perderPorEnergia() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
 				self.configurate()

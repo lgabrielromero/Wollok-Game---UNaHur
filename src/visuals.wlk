@@ -63,16 +63,38 @@ object interfaz{
 
 object consumiblesLvl1{
 	method agregar(){
-		[new Consumible(energiaQueAporta = 15, image = "Coquita.png"),
-			new Consumible(energiaQueAporta = 30, image = "ham.png"),
-			new Consumible(energiaQueAporta = 25, image = "ham.png"),
-			new Consumible(energiaQueAporta = 50, image = "pocion.png"),
-			new Consumible(energiaQueAporta = 15, image = "coquita.png"),
-			new Consumible(energiaQueAporta = 50, image = "pocion.png"),
-			new Consumible(energiaQueAporta = 15, image = "coquita.png")
+		[new Consumible(energiaQueAporta = 15, image = "zanahoria.png"),
+			new Consumible(energiaQueAporta = 30, image = "carne.png"),
+			new Consumible(energiaQueAporta = 25, image = "carne.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png")
 		].forEach{cosa => game.addVisual(cosa)}
 	}
 }
+
+object consumiblesLvl2{
+	method agregar(){
+		[new Consumible(energiaQueAporta = 15, image = "zanahoria.png"),
+			new Consumible(energiaQueAporta = 30, image = "carne.png"),
+			new Consumible(energiaQueAporta = 25, image = "carne.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png")
+		].forEach{cosa => game.addVisual(cosa)}
+	}
+}
+
+
+
 
 
 object llaveslvl1{

@@ -15,10 +15,12 @@ object utilidadesParaJuego {
 	}
 	
 	method iniciarMovimientosAutomaticos(){
-	game.onTick(900, "perseguir" , { craneo1.moverHaciaJugador()})
-	game.onTick(500, "movimientoCorto", { esqueleto1.mover() })
-	game.onTick(500, "movimientoCorto2", { esqueleto2.mover() })
+	game.onTick(900, "perseguir"  , { craneo1.moverHaciaJugador()})
+	game.onTick(500, "movimientoCorto" , { esqueleto1.mover() })
+	game.onTick(500, "movimientoCorto2" , { esqueleto2.mover() })
 	}
+	
+	
 	
 	method pausarMovimientosAutomaticos(tiempo){
 		self.detenerMovimientosAutomaticos()
@@ -29,10 +31,10 @@ object utilidadesParaJuego {
 object randomSinPisarse{
 	method colocar(){
 		var posicionX = 0.randomUpTo(game.width() - 1)
-		var posicionY = 2.randomUpTo(game.height() - 1)
+		var posicionY = 0.randomUpTo(game.height() - 1)
 		if(game.getObjectsIn(game.at(posicionX, posicionY)).size() >= 1){
 			posicionX = 0.randomUpTo(game.width() - 1)
-			posicionY = 2.randomUpTo(game.height() - 1)
+			posicionY = 0.randomUpTo(game.height() - 1)
 		}
 		return game.at(posicionX, posicionY)
 		

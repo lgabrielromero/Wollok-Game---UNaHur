@@ -134,9 +134,9 @@ class Barril {
 	
 }
 
-////////////////////////////////////
-////comida y bebida, dan energía////
-///////////////////////////////////
+///////////////////////////////////////////
+////Consumibles: Se agarran con espacio///
+/////////////////////////////////////////
 
 class Consumible{
 	var property energiaQueAporta
@@ -156,5 +156,20 @@ class Consumible{
 
    
 }
+
+class PocionVida inherits Consumible{
+	override method consumir(){
+		player.sumaVida(self.energiaQueAporta())
+		game.removeVisual(self)
+	}
+}
+
+class PocionMana inherits Consumible{
+	override method consumir(){
+		player.sumaGranada(self.energiaQueAporta())
+		game.removeVisual(self)
+	}
+}
+
 
 

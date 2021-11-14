@@ -26,6 +26,7 @@ object nivelBloques {
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
+		
 		llaveslvl1.agregar() 
 		
 		//Consumibles
@@ -62,10 +63,11 @@ object nivelBloques {
 			// cambio de fondo
 			game.addVisual(new Fondo(image="finNivel1.png"))
 			// después de un ratito ...
-			game.schedule(3000, {
+			keyboard.enter().onPressDo( {
 				// ... limpio todo de nuevo
 				game.clear()
 				// y arranco el siguiente nivel
+				player.resetStats()
 				nivelLlaves.configurate()
 			})
 		})
@@ -74,7 +76,7 @@ object nivelBloques {
 	method perderPorVida() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinVida.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
 				self.configurate()
@@ -84,7 +86,7 @@ object nivelBloques {
 	method perderPorEnergia() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo( {
 				game.clear()
 				player.resetStats()
 				self.configurate()

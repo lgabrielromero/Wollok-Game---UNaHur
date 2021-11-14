@@ -15,10 +15,12 @@ object utilidadesParaJuego {
 	}
 	
 	method iniciarMovimientosAutomaticos(){
-	game.onTick(900, "perseguir" , { craneo1.moverHaciaJugador()})
-	game.onTick(500, "movimientoCorto", { esqueleto1.mover() })
-	game.onTick(500, "movimientoCorto2", { esqueleto2.mover() })
+	game.onTick(900, "perseguir"  , { craneo1.moverHaciaJugador()})
+	game.onTick(500, "movimientoCorto" , { esqueleto1.mover() })
+	game.onTick(500, "movimientoCorto2" , { esqueleto2.mover() })
 	}
+	
+	
 	
 	method pausarMovimientosAutomaticos(tiempo){
 		self.detenerMovimientosAutomaticos()

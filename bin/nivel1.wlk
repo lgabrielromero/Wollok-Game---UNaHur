@@ -7,6 +7,7 @@ import hud.*
 import direcciones.*
 import paredes.*
 import visuals.*
+import utilidades.*
 
 object nivelBloques {
 
@@ -25,6 +26,7 @@ object nivelBloques {
 		// otros visuals, p.ej. bloques o llaves
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
+		
 		llaveslvl1.agregar() 
 		
 		//Consumibles
@@ -37,6 +39,10 @@ object nivelBloques {
 		game.addVisual(player)
 		
 		// teclado
+		player.nivel(1)	
+		player.movimientos()
+		utilidadesParaJuego.iniciarMovimientosAutomaticos()
+		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// este es para probar, no es necesario dejarlo
 		keyboard.t().onPressDo({ self.terminar() })
 
@@ -57,13 +63,34 @@ object nivelBloques {
 			// cambio de fondo
 			game.addVisual(new Fondo(image="finNivel1.png"))
 			// después de un ratito ...
-			game.schedule(3000, {
+			keyboard.enter().onPressDo( {
 				// ... limpio todo de nuevo
 				game.clear()
 				// y arranco el siguiente nivel
+				player.resetStats()
 				nivelLlaves.configurate()
 			})
 		})
+	}
+	
+	method perderPorVida() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinVida.png"))
+			keyboard.enter().onPressDo({
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
+	}
+	
+	method perderPorEnergia() {
+			game.clear()
+			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
+			keyboard.enter().onPressDo( {
+				game.clear()
+				player.resetStats()
+				self.configurate()
+			})
 	}
 		
 }
