@@ -1,6 +1,7 @@
 import wollok.game.*
 import elementos.*
 import personajes.*
+import utilidades.*
 import hud.*
 import paredes.*
 // Sirve para crear elementos visuales que no interactuan con nada.
@@ -19,6 +20,7 @@ class Visuals {
 
 const monedaHud = new Visuals(image = "blood_coin.png", position = game.at(2,0))
 const keyHud = new Visuals(image = "SkeletonKey.png", position = game.at(14,0))
+const bombaHud = new Visuals(image = "bombaInactiva.png", position = game.center().down(7).right(1))
 
 const unidadEnergia = new Unidad(elementoActual = player.energia(),position = game.at(12,game.height() - 1).left(1))
 const decenaEnergia = new Decena(elementoActual = player.energia(),position = game.at(12,game.height() - 1).left(2))
@@ -38,6 +40,10 @@ const numeroMoneda = new Numero(decena = decenaMoneda, unidad = unidadMoneda)
 const unidadLlave = new Unidad(elementoActual = player.llaves(),position = game.at(13,0))
 const decenaLlave = new Decena(elementoActual = player.llaves(),position = game.at(12,0))
 const numeroLlave = new Numero(decena = decenaLlave, unidad = unidadLlave)
+
+const unidadBomba = new Unidad(elementoActual = player.granadas(),position = game.center().down(7).left(0))
+const decenaBomba = new Decena(elementoActual = player.granadas(),position = game.center().down(7).left(1))
+const numeroBomba = new Numero(decena = decenaBomba, unidad = unidadBomba)
 	
 
 object interfaz{
@@ -47,14 +53,36 @@ object interfaz{
 		game.addVisual(barraDeEnergia)
 		game.addVisual(monedaHud)
 		game.addVisual(keyHud)
+		game.addVisual(bombaHud)
 		numeroMoneda.mostrar()
 		numeroEnergia.mostrar()
 		numeroVida.mostrar()
 		numeroLlave.mostrar()
+		numeroBomba.mostrar()
 		
 	}
 	
 }
+
+/////////////////////////////////////////////
+//////CELDAS SORPRESA //////////////////////
+////////////////////////////////////////////
+
+object pisosAleatorios{
+	method agregar(){
+		[new PisoQuitaEnergia(position = randomSinPisarse.colocar()),
+			new PisoSumaEnergia(position = randomSinPisarse.colocar()),
+			new PisoItemAleatorio(position =randomSinPisarse.colocar()),
+			new PisoTeletransporta(position = game.at(1,2)),
+			new PisoTeletransporta(position = game.at(13,2)),
+			new PisoTeletransporta(position = game.at(1,12)),
+			new PisoTeletransporta(position = game.at(13,12))
+			
+		].forEach{cosa => game.addVisual(cosa)}
+		
+	}
+}
+
 
 /////////////////////////////////////////////
 //////MUESTRAN OBJETOS Y CONSUMIBLES////////
@@ -105,7 +133,9 @@ object consumiblesLvl3{
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
-			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png")
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new Bomba(),new Bomba(),new Bomba(), new Bomba(), new Bomba(),
+			new Bomba(),new Bomba(),new Bomba(), new Bomba(), new Bomba()
 		].forEach{cosa => game.addVisual(cosa)}
 	}
 }
@@ -116,9 +146,9 @@ object consumiblesLvl3{
 
 object llaveslvl1{
 	method agregar(){
-		[new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))),
-			new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))),
-			new Llave(image = "Key.png", position=game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1)))
+		[new Llave(image = "Key.png", position=randomSinPisarse.colocar()),
+			new Llave(image = "Key.png", position=randomSinPisarse.colocar()),
+			new Llave(image = "Key.png", position=randomSinPisarse.colocar())
 		].forEach{cosa => game.addVisual(cosa)}
 		
 	}
@@ -131,6 +161,13 @@ object monedaslvl2{
 		[new Moneda(),new Moneda(),new Moneda(),new Moneda(),new Moneda(),
 			new Moneda(),new Moneda(),new Moneda(), new Moneda(), new Moneda()
 		].forEach{cosa => game.addVisual(cosa)}
+	}
+}
+
+
+object enemigoslvl3{
+	method agregar(){
+		[spider1,spider2,spider3,spider4,spider5].forEach{cosa => game.addVisual(cosa)}
 	}
 }
 

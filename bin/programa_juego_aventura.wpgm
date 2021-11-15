@@ -15,7 +15,7 @@ program juego_aventura {
 	game.width(15)
 	game.cellSize(50)
 	game.boardGround("fondoBlanco.png")
-
+	musica.play()
 	nivelBloques.configurate()
 	game.start()
 }

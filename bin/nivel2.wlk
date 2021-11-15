@@ -8,6 +8,7 @@ import direcciones.*
 import paredes.*
 import visuals.*
 import utilidades.*
+import nivel3.*
 
 object nivelLlaves {
 
@@ -18,12 +19,14 @@ object nivelLlaves {
 		borde.addBordeCompleto()
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
+		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		monedaslvl2.agregar()
 		consumiblesLvl2.agregar()
 		// enemigos
 		game.addVisual(craneo1)
-		utilidadesParaJuego.iniciarMovimientosAutomaticos()
+		game.addVisual(craneo2)
+		utilidadesParaJuego.iniciarMovimientosAutomaticoslvl2()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})
@@ -31,6 +34,7 @@ object nivelLlaves {
 		player.nivel(2)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
+		game.say(player, "Cuanto dinero! Debo llevarmelo!")
 
 		// colisiones, acá sí hacen falta
 	}
@@ -43,15 +47,21 @@ object nivelLlaves {
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
 		game.addVisual(new Fondo(image="dungeonwall.png"))
+		game.addVisual(player)
+		player.image("DownPlayer.png")
+		game.say(player, "Vamos! Al ultimo nivel!!")
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()
 			// cambio de fondo
 			game.addVisual(new Fondo(image="ganamos.png"))
 			// después de un ratito ...
-			game.schedule(3000, {
-				// fin del juego
-				game.stop()
+			keyboard.enter().onPressDo( {
+				// ... limpio todo de nuevo
+				game.clear()
+				// y arranco el siguiente nivel
+				player.resetStats()
+				nivelBonus.configurate()
 			})
 		})
 	}
@@ -62,6 +72,7 @@ object nivelLlaves {
 			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
+				utilidadesParaJuego.resetearEnemigo()
 				self.configurate()
 			})
 	}
@@ -72,6 +83,7 @@ object nivelLlaves {
 			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
+				utilidadesParaJuego.resetearEnemigo()
 				self.configurate()
 			})
 	}

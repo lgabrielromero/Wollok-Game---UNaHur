@@ -18,6 +18,7 @@ class Wall{
 
 class PisoSorpresa {
 	var property position
+	var property image 
 	var property contadorDeVisitas = 0 
 	const property tipo = "piso"
 	
@@ -27,38 +28,47 @@ class PisoSorpresa {
 }
 
 
-class PisoQuitaEnergia inherits PisoSorpresa{
+class PisoQuitaEnergia inherits PisoSorpresa(image = "pisoEnergiaTrampa.png" ){
 	override method colisionAccion(){
 		if(contadorDeVisitas == 0){
 			contadorDeVisitas +=1
 			player.restaEnergia(15)
+			game.sound("error.mp3").play()
+			image = "pisoEnergiaTrampaDown.png"
 		}
 		
 	}
 }
 
-class PisoSumaEnergia inherits PisoSorpresa{
+class PisoSumaEnergia inherits PisoSorpresa(image = "pisoEnergia.png" ){
 	override method colisionAccion(){
 		if(contadorDeVisitas == 0){
 			contadorDeVisitas +=1
 			player.sumaEnergia(30)
+			game.sound("1up.mp3").play()
+			image = "pisoEnergiaDown.png"
 		}
 		
 	}
 }
 
-class PisoItemAleatorio inherits PisoSorpresa{
-	const items = [new Consumible(energiaQueAporta=20,image = "HAM.png"),new Consumible(energiaQueAporta=15,image = "Coquita.png")]
-	method random(){return new Range(start =0,end=1).anyOne()}
+class PisoItemAleatorio inherits PisoSorpresa(image = "pisoObjeto.png" ){
+	const pocionMana = new PocionMana(energiaQueAporta=50,image = "pocionMana.png")
 	override method colisionAccion(){
 		if(contadorDeVisitas == 0){
 			contadorDeVisitas +=1
-			game.addVisual(items.get(self.random()))
+			game.addVisual(pocionMana)
+			game.sound("teleport.mp3").play()
+			image = "pisoObjetoDown.png"
 		}
 		
 	}
 }
 
-class PisoTeletransporta inherits PisoSorpresa{
-	override method colisionAccion(){player.position(game.center())}
+class PisoTeletransporta inherits PisoSorpresa(image = "pisoTele.png" ){
+	override method colisionAccion(){
+		player.position(game.center())
+		game.sound("teleport.mp3").play()
+	}
+	
 }

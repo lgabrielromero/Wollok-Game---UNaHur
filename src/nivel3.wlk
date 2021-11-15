@@ -20,17 +20,13 @@ object nivelBonus {
 		borde.addBordeCompleto()
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
-		
+		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
 		
 		
 		// enemigos
-		game.addVisual(craneo1)
-		game.addVisual(craneo2)
-		game.addVisual(esqueleto1)
-		game.addVisual(esqueleto2)
-		game.addVisual(esqueleto3)
+		enemigoslvl3.agregar()
 		consumiblesLvl3.agregar()
-		utilidadesParaJuego.iniciarMovimientosAutomaticos()
+		utilidadesParaJuego.iniciarMovimientosAutomaticoslvl3()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})

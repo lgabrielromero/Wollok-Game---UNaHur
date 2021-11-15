@@ -19,12 +19,14 @@ object nivelLlaves {
 		borde.addBordeCompleto()
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
+		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		monedaslvl2.agregar()
 		consumiblesLvl2.agregar()
 		// enemigos
 		game.addVisual(craneo1)
-		utilidadesParaJuego.iniciarMovimientosAutomaticos()
+		game.addVisual(craneo2)
+		utilidadesParaJuego.iniciarMovimientosAutomaticoslvl2()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})
@@ -70,6 +72,7 @@ object nivelLlaves {
 			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
+				utilidadesParaJuego.resetearEnemigo()
 				self.configurate()
 			})
 	}
@@ -80,6 +83,7 @@ object nivelLlaves {
 			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
+				utilidadesParaJuego.resetearEnemigo()
 				self.configurate()
 			})
 	}

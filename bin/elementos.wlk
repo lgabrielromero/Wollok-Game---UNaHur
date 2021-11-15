@@ -23,11 +23,20 @@ class Llave {
 	method recoger(){
 		player.agarrarLlave()
 		game.removeVisual(self)
+		game.sound("keyPickup.mp3").play()
 	}
 	method colisionAccion(){}
 }
 
 class LlaveMaestra inherits Llave{
+	override method recoger(){
+		player.agarrarLlave()
+		game.removeVisual(self)
+		game.sound("keyPickup.mp3").play()
+		game.sound("holy.mp3").play()
+		
+	}
+	
 }
 
 
@@ -44,6 +53,7 @@ class Moneda {
 	method colisionAccion(){
 		game.removeVisual(self)
 		player.agarrarMoneda()
+		game.sound("coinUp.mp3").play()
 	}
 	method validarLugarLibre(){
 		return true
@@ -87,6 +97,7 @@ class Puerta {
 		}
 		if (player.llaves() == 7 and self.contadorDeVisitas() == 2){
 			contadorDeVisitas +=1
+			game.sound("door_Open.mp3").play()
 			nivelBloques.terminar()
 		}
 		else{
@@ -151,6 +162,7 @@ class Consumible{
 	method consumir(){
 		player.sumaEnergia(self.energiaQueAporta())
 		game.removeVisual(self)
+		game.sound("comer.mp3").play()
 		
 	}
 
@@ -160,16 +172,28 @@ class Consumible{
 class PocionVida inherits Consumible{
 	override method consumir(){
 		player.sumaVida(self.energiaQueAporta())
+		game.sound("drink.mp3").play()
 		game.removeVisual(self)
 	}
 }
 
 class PocionMana inherits Consumible{
+	var property vida = 25
+	var property energia = 25
 	override method consumir(){
-		player.sumaGranada(self.energiaQueAporta())
+		player.sumaVida(vida )
+		player.sumaEnergia(energia)
+		game.sound("drink.mp3").play()
 		game.removeVisual(self)
 	}
 }
 
+class Bomba inherits Consumible(energiaQueAporta = 15, image = "bombaInactiva.png"){
+	override method consumir(){
+		player.sumaGranada(energiaQueAporta)
+		game.sound("agarrar.mp3").play()
+		game.removeVisual(self)
+	}
+}
 
 

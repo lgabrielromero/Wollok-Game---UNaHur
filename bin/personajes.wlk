@@ -6,6 +6,7 @@ import utilidades.*
 import visuals.*
 import nivel1.*
 import nivel2.*
+import nivel3.*
 
 
 
@@ -18,7 +19,7 @@ object player {
 	var property image = "RightPlayer.png"
 	var property vida = 99
 	var property energia = 30
-	var property direccion = null
+	var property direccion = derecha
 	var property llaves = 0
 	var property monedas = 0
 	var property nivel = 1
@@ -33,13 +34,13 @@ object player {
 	method perderPorEnergia(){
 		if (self.nivel() == 1){nivelBloques.perderPorEnergia()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorEnergia()}
-		//else{nivelBonus.perderPorEnergia()}
+		else{nivelBonus.perderPorEnergia()}
 	}
 	
 	method perderPorVida(){
 		if (self.nivel() == 1){nivelBloques.perderPorVida()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorVida()}
-		//else{nivelBonus.perderPorVida()}
+		else{nivelBonus.perderPorVida()}
 	}
 	
 	method resetStats(){
@@ -145,7 +146,16 @@ object player {
 	keyboard.up().onPressDo({ self.moverArriba() })
 	keyboard.down().onPressDo({ self.moverAbajo() })
 	keyboard.space().onPressDo({ self.agarrar() })
-	keyboard.control().onPressDo({ lanzadora.lanzarGranada()})
+	keyboard.control().onPressDo({ self.tirarGranada()})
+	}
+	
+	method tirarGranada(){
+		const bombaNueva = new Lanzadora()
+		if(granadas > 0){
+			self.restaGranada(1)
+			bombaNueva.lanzarGranada()
+		}
+		
 	}
 	
 	method danio(danio){
@@ -155,7 +165,7 @@ object player {
 	else{
 		self.vida(self.vida() - 20)
 		game.sound("dmg.mp3").play()
-		utilidadesParaJuego.pausarMovimientosAutomaticos(2000)
+		
 		self.moverPorGolpe()
 		}
 	barraDeVidas.barra()
@@ -172,6 +182,7 @@ object player {
 		
 	}
 	
+	
 	method colision(elemento){
 		elemento.colisionAccion()
 	}
@@ -186,13 +197,19 @@ object player {
 	
 	method agarrarMoneda(){
 		monedas = 99.min(monedas + 1)
-		vida -= 10
+		vida = 0.max(vida - 10)
 		numeroMoneda.actualiza(self.monedas())
 		numeroVida.actualiza(self.vida())
 		barraDeVidas.barra()
+		if(vida == 0 ){
+			self.perderPorVida()
+		}
+		
+		
 	}
 	method sumaGranada(cantidad){
 		granadas = 99.min(granadas + cantidad)
+		numeroBomba.actualiza(self.granadas())
 		
 		
 	}
@@ -209,15 +226,24 @@ object player {
 		barraDeEnergia.barra()
 		numeroEnergia.actualiza(self.energia())
 	}
+	
+	method restaGranada(cantidad){
+		granadas = 0.max(granadas - cantidad)
+		numeroBomba.actualiza(self.granadas())
+		
+		
+	}
 
 	method restaEnergia(cantidad) {
 		energia = 0.max(energia - cantidad)
 		barraDeEnergia.barra()
 		numeroEnergia.actualiza(self.energia())
+		if (energia == 0){
+			self.perderPorEnergia()
+		}
 	}
 	
-	
-	// Valida la accion de Agarrar Objetos ( Por alguna razón no funciona con All, preguntarle al profesor)
+
 	
 	method consumibleEnfrente(){
 		var objetoEnfrente = null
@@ -255,11 +281,13 @@ object player {
 	
 }
 
-object lanzadora{
+
+//// ATAQUE ////
+class Lanzadora{
 	const property tipo = "ataque"
 	var property image = null
-	var property position
-	
+	var property position = null
+	method colisionAccion(){}
 	method esEnemigo(x){
 		return game.getObjectsIn(x).any{ obj => obj.tipo() == "enemigo"}
 	}
@@ -272,7 +300,10 @@ object lanzadora{
 			image = "BombaExplosion.png"
 			game.addVisual(self)
 			game.getObjectsIn(espacio1).find({cosa => cosa.tipo() == "enemigo"}).muerte()
-			game.schedule(100, { => game.removeVisual(self) })
+			game.schedule(100, { =>
+				game.removeVisual(self)
+				game.sound("explosion.mp3").play()
+			})
 	
 		}
 		else if(self.esEnemigo(espacio2)){
@@ -285,7 +316,10 @@ object lanzadora{
 				position = espacio2
 				image = "BombaExplosion.png"
 				game.addVisual(self)
-				game.schedule(100, { => game.removeVisual(self) })
+				game.schedule(100, { => 
+					game.removeVisual(self)
+					game.sound("explosion.mp3").play()
+				})
 			})
 			
 		}
@@ -304,7 +338,10 @@ object lanzadora{
 					position = espacio3
 					image = "BombaExplosion.png"
 					game.addVisual(self)
-					game.schedule(100, { => game.removeVisual(self) })
+					game.schedule(100, { => 
+						game.removeVisual(self)
+						game.sound("explosion.mp3").play()
+					})
 					
 				})
 			})
@@ -323,7 +360,10 @@ object lanzadora{
 					position = espacio3
 					image = "BombaExplosion.png"
 					game.addVisual(self)
-					game.schedule(100, { => game.removeVisual(self) })
+					game.schedule(100, { => 
+						game.removeVisual(self)
+						game.sound("explosion.mp3").play()
+					})
 					
 				})
 			})
@@ -342,18 +382,39 @@ object lanzadora{
 ////////////////////
 
 class Enemigo{
-	var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
+	var property position = randomSinPisarse.colocar()
 	var property image
+	var property positionOriginal = null
 	var property esAtravesable = false
 	const property tipo = "enemigo"
 	var property direccion = null
 	method colisionAccion()
 	
-	method validarLugarLibre(){return true}
+	method validarLugarLibre(){return false}
 	
 	method muerte(){
-		game.removeVisual(self)
+		if (player.nivel() == 3 and nivelBonus.enemigosMuertos() < 19 ){
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			game.schedule(2500, {
+			game.addVisual(self)
+			})
+		}
+		else if (player.nivel() == 3 and nivelBonus.enemigosMuertos() == 19){
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			nivelBonus.ganar()
+		}
+		else{
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			game.schedule(5000, {
+			game.addVisual(self)
+			})
+		}
+		
 	}
+	
 	method mover()
 	method cambiarDireccionImg()	
 }
@@ -426,8 +487,45 @@ class Esqueleto inherits Enemigo{
 }
 
 
-
-
+////////////////////
+//////ARAÑA////////
+////////////////////
+class Spider inherits Esqueleto{
+	override method colisionAccion(){
+		player.danio(20)
+	}
+	
+	override method moverIzquierda(){
+		self.direccion(izquierda)
+		self.image("spiderLeft.png")
+		if (self.validarLugarLibre() ){
+			position = position.left(1)
+		}
+	}
+	
+	override method moverDerecha(){
+		self.direccion(derecha)
+		self.image("spiderRight.png")
+		if (self.validarLugarLibre()){
+			position = position.right(1)
+		}
+		
+	}
+	
+	override method cambiarDireccionImg(){
+		if (self.image() == "spiderLeft.png" ){
+			self.image("spiderRight.png")
+		}
+		else{
+			self.image("spiderLeft.png")
+		}
+	}
+	
+	method iniciarMovimientosAutomaticos(){
+		game.onTick(800, "movimientoSpider" , { self.mover() })
+	}
+	
+}
 
 
 ////////////////////
@@ -461,6 +559,17 @@ class Craneo inherits Enemigo{
 	}
 }
 
-const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,0))
+const spider1 = new Spider(image = "spiderLeft.png")
+const spider2 = new Spider(image = "spiderLeft.png")
+const spider3 = new Spider(image = "spiderLeft.png")
+const spider4 = new Spider(image = "spiderLeft.png")
+const spider5 = new Spider(image = "spiderLeft.png")
+const spider6 = new Spider(image = "spiderLeft.png")
+const spider7 = new Spider(image = "spiderLeft.png")
+
+const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,1),positionOriginal = game.at(0,1))
+const craneo2 = new Craneo(image = "LeftFloatingSkeleton.png",position = game.at(14,1),positionOriginal = game.at(14,1))
+
 const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
 const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")
+const esqueleto3 = new Esqueleto(image = "LeftSkeleton.png")

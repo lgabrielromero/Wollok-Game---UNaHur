@@ -15,15 +15,12 @@ object nivelBloques {
 		// fondo - es importante que sea el primer visual que se agregue
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 		// Soundtrack del nivel 
-		const ost = game.sound("backgroundOST.mp3")
-		ost.shouldLoop(true)
-		game.schedule(500, { ost.play()} )
 		
 		// Elementos del Hud (Estado del jugador)
 		borde.addBordeCompleto()
-		game.addVisual(new PisoTeletransporta(position = game.at(0,0)))
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
+		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
 		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
 		
@@ -32,12 +29,10 @@ object nivelBloques {
 		//Consumibles
 		consumiblesLvl1.agregar()
 		// Enemigos
-		
 		game.addVisual(esqueleto1)
 		game.addVisual(esqueleto2)
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
-		
 		// teclado
 		player.nivel(1)	
 		player.movimientos()
@@ -68,6 +63,8 @@ object nivelBloques {
 				// ... limpio todo de nuevo
 				game.clear()
 				// y arranco el siguiente nivel
+		
+				
 				player.resetStats()
 				nivelLlaves.configurate()
 			})
