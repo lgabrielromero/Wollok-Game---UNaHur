@@ -93,6 +93,23 @@ object consumiblesLvl2{
 	}
 }
 
+object consumiblesLvl3{
+	method agregar(){
+		[new Consumible(energiaQueAporta = 15, image = "zanahoria.png"),
+			new Consumible(energiaQueAporta = 30, image = "carne.png"),
+			new Consumible(energiaQueAporta = 25, image = "carne.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png"),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png")
+		].forEach{cosa => game.addVisual(cosa)}
+	}
+}
+
 
 
 

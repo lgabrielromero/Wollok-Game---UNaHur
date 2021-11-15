@@ -10,19 +10,26 @@ import visuals.*
 import utilidades.*
 
 object nivelBonus {
+	var property enemigosMuertos = 0
 
 	method configurate() {
 		player.movimientos()
+		self.enemigosMuertos(0)
 		// fondo - es importante que sea el primer visual que se agregue
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 		borde.addBordeCompleto()
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
-		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
-		monedaslvl2.agregar()
+		
+		
 		
 		// enemigos
 		game.addVisual(craneo1)
+		game.addVisual(craneo2)
+		game.addVisual(esqueleto1)
+		game.addVisual(esqueleto2)
+		game.addVisual(esqueleto3)
+		consumiblesLvl3.agregar()
 		utilidadesParaJuego.iniciarMovimientosAutomaticos()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
@@ -31,26 +38,24 @@ object nivelBonus {
 		player.nivel(3)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
+		game.say(player, "Debo matar 30 enemigos!")
 
 		// colisiones, acá sí hacen falta
 	}
 	
 	method ganar() {
-		// es muy parecido al terminar() de nivelBloques
-		// el perder() también va a ser parecido
-		
-		// game.clear() limpia visuals, teclado, colisiones y acciones
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
 		game.addVisual(new Fondo(image="dungeonwall.png"))
+		player.position(game.center())
+		game.addVisual(player)
+		player.image("DownPlayer.png")
+		game.say(player, "GANAMOS! FELICIDADES!")
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()
-			// cambio de fondo
-			game.addVisual(new Fondo(image="ganamos.png"))
-			// después de un ratito ...
-			game.schedule(3000, {
-				// fin del juego
+			game.addVisual(new Fondo(image="finBonus.png"))
+			keyboard.enter().onPressDo( {
 				game.stop()
 			})
 		})
@@ -59,7 +64,7 @@ object nivelBonus {
 	method perderPorVida() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinVida.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
 				self.configurate()
@@ -69,7 +74,7 @@ object nivelBonus {
 	method perderPorEnergia() {
 			game.clear()
 			game.addVisual(new Fondo(image="PerderSinEnergia.png"))
-			game.schedule(3000, {
+			keyboard.enter().onPressDo({
 				game.clear()
 				player.resetStats()
 				self.configurate()

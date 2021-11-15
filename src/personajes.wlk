@@ -6,6 +6,7 @@ import utilidades.*
 import visuals.*
 import nivel1.*
 import nivel2.*
+import nivel3.*
 
 
 
@@ -33,13 +34,13 @@ object player {
 	method perderPorEnergia(){
 		if (self.nivel() == 1){nivelBloques.perderPorEnergia()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorEnergia()}
-		//else{nivelBonus.perderPorEnergia()}
+		else{nivelBonus.perderPorEnergia()}
 	}
 	
 	method perderPorVida(){
 		if (self.nivel() == 1){nivelBloques.perderPorVida()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorVida()}
-		//else{nivelBonus.perderPorVida()}
+		else{nivelBonus.perderPorVida()}
 	}
 	
 	method resetStats(){
@@ -342,7 +343,7 @@ object lanzadora{
 ////////////////////
 
 class Enemigo{
-	var property position = game.at(0.randomUpTo(game.width() - 1),0.randomUpTo(game.height() - 1))
+	var property position = randomSinPisarse.colocar()
 	var property image
 	var property esAtravesable = false
 	const property tipo = "enemigo"
@@ -352,8 +353,28 @@ class Enemigo{
 	method validarLugarLibre(){return true}
 	
 	method muerte(){
-		game.removeVisual(self)
+		if (player.nivel() == 3 and nivelBonus.enemigosMuertos() < 29 ){
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			game.schedule(2500, {
+			game.addVisual(self)
+			})
+		}
+		else if (player.nivel() == 3 and nivelBonus.enemigosMuertos() == 29){
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			nivelBonus.ganar()
+		}
+		else{
+			game.removeVisual(self)
+			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
+			game.schedule(5000, {
+			game.addVisual(self)
+			})
+		}
+		
 	}
+	
 	method mover()
 	method cambiarDireccionImg()	
 }
@@ -461,6 +482,9 @@ class Craneo inherits Enemigo{
 	}
 }
 
-const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,0))
+const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png")
+const craneo2 = new Craneo(image = "LeftFloatingSkeleton.png")
+
 const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
 const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")
+const esqueleto3 = new Esqueleto(image = "LeftSkeleton.png")

@@ -45,6 +45,7 @@ object nivelBloques {
 		game.whenCollideDo(player, { elemento => player.colision(elemento)})
 		// este es para probar, no es necesario dejarlo
 		keyboard.t().onPressDo({ self.terminar() })
+		game.say(player, "Debo abrir la puerta!")
 
 		// en este no hacen falta colisiones
 	}

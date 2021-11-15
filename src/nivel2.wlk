@@ -8,6 +8,7 @@ import direcciones.*
 import paredes.*
 import visuals.*
 import utilidades.*
+import nivel3.*
 
 object nivelLlaves {
 
@@ -31,6 +32,7 @@ object nivelLlaves {
 		player.nivel(2)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
+		game.say(player, "Cuanto dinero! Debo llevarmelo!")
 
 		// colisiones, acá sí hacen falta
 	}
@@ -43,15 +45,21 @@ object nivelLlaves {
 		game.clear()
 		// después puedo volver a agregar el fondo, y algún visual para que no quede tan pelado
 		game.addVisual(new Fondo(image="dungeonwall.png"))
+		game.addVisual(player)
+		player.image("DownPlayer.png")
+		game.say(player, "Vamos! Al ultimo nivel!!")
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()
 			// cambio de fondo
 			game.addVisual(new Fondo(image="ganamos.png"))
 			// después de un ratito ...
-			game.schedule(3000, {
-				// fin del juego
-				game.stop()
+			keyboard.enter().onPressDo( {
+				// ... limpio todo de nuevo
+				game.clear()
+				// y arranco el siguiente nivel
+				player.resetStats()
+				nivelBonus.configurate()
 			})
 		})
 	}
