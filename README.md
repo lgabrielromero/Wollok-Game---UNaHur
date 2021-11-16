@@ -1,29 +1,23 @@
 
-# Juego de aventura
-
-Se debe desarrollar un juego con al menos dos niveles diferenciados. 
+# Skeleton Nightmare
 
 
-## Estructura inicial
+## Controles
+-Para mover a tu personaje se usan las teclas  (↓) (↑) (→) (←).
+-Para tirar las bombas/granadas se usa la tecla CTRL.
+-Para agarrar los consumibles y bombas se usa la tecla espacio.
+-Para ir al nivel Test se usa la tecla P
+
+
 El código que acompaña a este enunciado tiene una estructura básica del juego, incluyendo los dos niveles, y cómo hacer la transición entre niveles. Están resueltas: la transición del nivel 1 al 2, y el fin de juego en caso de ganar. Falta manejar el caso de perder.
 
-Se agregan algunos visuals de ejemplos en cada nivel, una tecla en el nivel 1 **(tecla t)** para simular que se terminó el nivel y así pasar al siguiente, y una tecla en el nivel 2 **(tecla g)** para simular que se ganó. Estas funcionalidades son para probar: los visuals deben reemplazarse por los que implementen ustedes; con las teclas como prefieran, déjenlas como están, cambien de tecla, o bórrenlas.
 
+## Celda sorpresa
 
-## Algunas cosas que obligatoriamente deben implementar
-- El juego debe tener un personaje principal que pueda moverse en ambos niveles y tener al menos energía y salud. Las teclas del movimiento deberán ser las teclas  (↓) (↑) (→) (←)
-- En el juevo siempre deberán estar visibles los indicadores de energía y salud del personaje principal. Puede tener otros indicadores como por ejemplo: cantidad de granadas 
-- Efecto tipo pac-man, esto quiere decir que si por ejemplo, el personaje principal esta posicionado sobre cualquier columna en la fila superior del tablero  y  se presiona la flecha arriba (↑), entonces el personaje deberá aparecer en la parte inferior del tablero. Esta funcionalidad debe ser independiente del tamaño del tablero (no vale hardcodear los valores de alto y ancho)
-- El personaje principal deberá poder mover objetos, para ello debe posicionarse detrás del objeto. P.ej. si el personaje está a la izquierda de una caja y se mueve hacia la derecha, entonces la caja se mueven en forma conjunta.
-- Se deben agregar varios tipos de objetos como por ejemplo, hamburgueas y gaseosas que dan energía, otros que dan salud (ponele, un botiquín), otros que deben ser acumulables (tipo cajas,llaves, etc) y otros que otorgan dinero (ligontes de oro, monedas, etc)
-- También debe tener bichos con movimientos aleatorios, pero también que se muevan hacia el personaje y si lo chochan el personaje pierde salud.
-
-## Celdas sorpresa
-Agregar al tablero elementos con efectos variados, p.ej.
-- uno quita 15 puntos de energía.
-- otro agrega 30 puntos de energía.
-- otro hace aparecer un objecto en un posicion aleatorea.
-- otro "teletransporta" a otra posición.
+- Piso ? Rojo:  quita 15 puntos de energía.
+- Piso ? Amarillo: agrega 30 puntos de energía.
+- Piso ? Celeste: hace aparecer un objecto en un posicion aleatorea.
+- Piso ? Rosado: "teletransporta" a otra posición.
 
 
 ## Objetivo Nivel 1 - Agrupar objetos cuidando la energía
@@ -42,7 +36,6 @@ Un detalle **muy importante**: debe aparecer una puerta de salida para finalizar
 
  
 Si el personaje se queda sin salud , entonces pierde. Si pasa por la puerta de salida, entonces gana. En cualquiera de los dos casos, debe aparecer un cartel que indique el resultado.
-
 
 
 ## Mega bonus
