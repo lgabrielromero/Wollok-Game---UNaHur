@@ -20,13 +20,11 @@ object utilidadesParaJuego {
 	
 	
 	method iniciarMovimientosAutomaticoslvl3(){
-		spider1.iniciarMovimientosAutomaticos()
-		spider2.iniciarMovimientosAutomaticos()
-		spider3.iniciarMovimientosAutomaticos()
-		spider4.iniciarMovimientosAutomaticos()
-		spider5.iniciarMovimientosAutomaticos()
-		spider6.iniciarMovimientosAutomaticos()
-		spider7.iniciarMovimientosAutomaticos()
+		game.onTick(850, "movimientoSpider" , { spider1.mover() })
+		game.onTick(850, "movimientoSpider" , { spider2.mover() })
+		game.onTick(850, "movimientoSpider" , { spider3.mover() })
+		game.onTick(850, "movimientoSpider" , { spider4.mover() })
+		game.onTick(850, "movimientoSpider" , { spider5.mover() })
 	}
 	
 	method iniciarMovimientosAutomaticoslvl2(){
@@ -42,7 +40,6 @@ object utilidadesParaJuego {
 	method resetearEnemigo(){
 		craneo1.position(craneo1.positionOriginal())
 		craneo2.position(craneo2.positionOriginal())
-		craneoP.position(craneoP.positionOriginal())
 		
 	}
 }

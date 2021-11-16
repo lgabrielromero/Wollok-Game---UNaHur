@@ -49,6 +49,7 @@ object player {
 		self.direccion(null)
 		self.llaves(0)
 		self.monedas(0)
+		self.granadas(0)
 		self.position(game.center())
 		numeroEnergia.actualiza(self.energia())
 		barraDeEnergia.barra()
@@ -56,6 +57,7 @@ object player {
 		numeroVida.actualiza(self.vida())
 		numeroLlave.actualiza(self.llaves())
 		numeroMoneda.actualiza(self.monedas())
+		numeroBomba.actualiza(self.granadas())
 	}
 	
 	method moverArriba(){
@@ -283,7 +285,9 @@ object player {
 }
 
 
-//// ATAQUE ////
+///////////////////////////////////////////
+////ATAQUE: USAR CONTROL PARA LANZAR//////
+/////////////////////////////////////////
 class Lanzadora{
 	const property tipo = "ataque"
 	var property image = null
@@ -527,9 +531,7 @@ class Spider inherits Esqueleto{
 		}
 	}
 	
-	method iniciarMovimientosAutomaticos(){
-		game.onTick(850, "movimientoSpider" , { self.mover() })
-	}
+	
 	
 }
 
@@ -565,17 +567,4 @@ class Craneo inherits Enemigo{
 	}
 }
 
-const spider1 = new Spider(image = "spiderLeft.png")
-const spider2 = new Spider(image = "spiderLeft.png")
-const spider3 = new Spider(image = "spiderLeft.png")
-const spider4 = new Spider(image = "spiderLeft.png")
-const spider5 = new Spider(image = "spiderLeft.png")
-const spider6 = new Spider(image = "spiderLeft.png")
-const spider7 = new Spider(image = "spiderLeft.png")
 
-const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,1),positionOriginal = game.at(0,1))
-const craneo2 = new Craneo(image = "LeftFloatingSkeleton.png",position = game.at(14,1),positionOriginal = game.at(14,1))
-
-const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
-const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")
-const esqueleto3 = new Esqueleto(image = "LeftSkeleton.png")

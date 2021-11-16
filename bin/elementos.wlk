@@ -127,6 +127,7 @@ class PuertaLvl2 inherits Puerta{
 ////////////////////
 
 class Barril {
+	// Este objeto es el que se puede mover.
 	var property position
 	var property direccion = null
 	const property image = "Barril.png"

@@ -67,9 +67,9 @@ object interfaz{
 /////////////////////////////////////////////
 //////VISUALS PARA EL TEST //////////////////
 ////////////////////////////////////////////
-const spiderP = new Spider(image = "spiderLeft.png", position = game.center().right(7), positionOriginal = game.center().right(7))
-const craneoP = new Craneo(image = "LeftFloatingSkeleton.png", position = game.center().right(7).up(1),positionOriginal = game.center().right(7).up(1))
-const esqueletoP = new Esqueleto(image = "LeftSkeleton.png",position = game.center().right(7).down(1), positionOriginal = game.center().right(7).down(1))
+const spiderP = new Spider(image = "spiderLeft.png", position = game.center().right(7))
+const craneoP = new Craneo(image = "LeftFloatingSkeleton.png", position = game.center().right(7).up(1))
+const esqueletoP = new Esqueleto(image = "LeftSkeleton.png",position = game.center().right(7).down(1))
 object visualTest {
 	method agregar(){
 		[new PisoQuitaEnergia(position = game.center().down(6)),
@@ -295,3 +295,19 @@ object borde {
 	
 }
 
+///////////////////////////////////
+//////////////ENEMIGOS////////////
+/////////////////////////////////
+
+const spider1 = new Spider(image = "spiderLeft.png")
+const spider2 = new Spider(image = "spiderLeft.png")
+const spider3 = new Spider(image = "spiderLeft.png")
+const spider4 = new Spider(image = "spiderLeft.png")
+const spider5 = new Spider(image = "spiderLeft.png")
+
+const craneo1 = new Craneo(image = "LeftFloatingSkeleton.png", position = game.at(0,1),positionOriginal = game.at(0,1))
+const craneo2 = new Craneo(image = "LeftFloatingSkeleton.png",position = game.at(14,1),positionOriginal = game.at(14,1))
+
+const esqueleto1 = new Esqueleto(image = "LeftSkeleton.png")
+const esqueleto2 = new Esqueleto(image = "LeftSkeleton.png")
+const esqueleto3 = new Esqueleto(image = "LeftSkeleton.png")
