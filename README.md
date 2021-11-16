@@ -3,10 +3,10 @@
 
 
 ## Controles
--Para mover a tu personaje se usan las teclas  (↓) (↑) (→) (←).
--Para tirar las bombas/granadas se usa la tecla CTRL.
--Para agarrar los consumibles y bombas se usa la tecla espacio.
--Para ir al nivel Test se usa la tecla P
+- Para mover a tu personaje se usan las teclas  (↓) (↑) (→) (←).
+- Para tirar las bombas/granadas se usa la tecla CTRL.
+- Para agarrar los consumibles y bombas se usa la tecla espacio.
+- Para ir al nivel Test se usa la tecla P
 
 
 El código que acompaña a este enunciado tiene una estructura básica del juego, incluyendo los dos niveles, y cómo hacer la transición entre niveles. Están resueltas: la transición del nivel 1 al 2, y el fin de juego en caso de ganar. Falta manejar el caso de perder.
