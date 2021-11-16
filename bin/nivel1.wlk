@@ -21,7 +21,7 @@ object nivelBloques {
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
 		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
-		game.addVisual(new Puerta(position=game.at(game.width() /2,game.height()-2)))
+		game.addVisual(new Puerta(position= randomSinPisarse.colocar()))
 		game.addVisual(new Barril(position= game.center().up(1).left(2)))
 		
 		llaveslvl1.agregar() 

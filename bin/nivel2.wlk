@@ -20,6 +20,7 @@ object nivelLlaves {
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
 		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
+		game.addVisual(new Barril(position= game.center().up(1).left(2)))
 		game.addVisual(new PuertaLvl2(position=game.at(game.width() /2,game.height()-2)))
 		monedaslvl2.agregar()
 		consumiblesLvl2.agregar()
@@ -49,7 +50,7 @@ object nivelLlaves {
 		game.addVisual(new Fondo(image="dungeonwall.png"))
 		game.addVisual(player)
 		player.image("DownPlayer.png")
-		game.say(player, "Vamos! Al ultimo nivel!!")
+		game.say(player, "Vamos! Salgamos del Castillo!!")
 		// después de un ratito ...
 		game.schedule(2500, {
 			game.clear()

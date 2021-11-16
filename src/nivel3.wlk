@@ -21,11 +21,11 @@ object nivelBonus {
 		interfaz.agregar()
 		// otros visuals, p.ej. bloques o llaves
 		pisosAleatorios.agregar() // ESTO VA PRIMERO XQ ES UN PISO
-		
+		game.addVisual(new Barril(position= game.center().up(1).left(2)))
+		consumiblesLvl3.agregar()
 		
 		// enemigos
 		enemigoslvl3.agregar()
-		consumiblesLvl3.agregar()
 		utilidadesParaJuego.iniciarMovimientosAutomaticoslvl3()
 		// personaje, es importante que sea el último visual que se agregue
 		game.addVisual(player)
@@ -34,7 +34,7 @@ object nivelBonus {
 		player.nivel(3)
 		// este es para probar, no es necesario dejarlo
 		keyboard.g().onPressDo({ self.ganar() })
-		game.say(player, "Debo matar 30 enemigos!")
+		game.say(player, "Debo matar 20 enemigos!")
 
 		// colisiones, acá sí hacen falta
 	}

@@ -65,6 +65,49 @@ object interfaz{
 }
 
 /////////////////////////////////////////////
+//////VISUALS PARA EL TEST //////////////////
+////////////////////////////////////////////
+const spiderP = new Spider(image = "spiderLeft.png", position = game.center().right(7), positionOriginal = game.center().right(7))
+const craneoP = new Craneo(image = "LeftFloatingSkeleton.png", position = game.center().right(7).up(1),positionOriginal = game.center().right(7).up(1))
+const esqueletoP = new Esqueleto(image = "LeftSkeleton.png",position = game.center().right(7).down(1), positionOriginal = game.center().right(7).down(1))
+object visualTest {
+	method agregar(){
+		[new PisoQuitaEnergia(position = game.center().down(6)),
+			new PisoSumaEnergia(position = game.center().down(6).left(1)),
+			new PisoItemAleatorio(position = game.center().down(6).left(2)),
+			new PisoTeletransporta(position = game.center().down(6).right(1)),
+			new Consumible(energiaQueAporta = 15, image = "zanahoria.png", position =  game.center().up(6)),
+			new Consumible(energiaQueAporta = 30, image = "carne.png", position = game.center().up(6).left(1)),
+			new Consumible(energiaQueAporta = 50, image = "pocionEnergia.png", position = game.center().up(6).right(1)),
+			new Consumible(energiaQueAporta = 20, image = "manzana.png", position = game.center().up(6).right(2)),
+			new Bomba(energiaQueAporta = 15 , position = game.center().up(6).right(3)),
+			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png", position = game.center().up(6).left(2)),
+			new PocionMana(energiaQueAporta=50,image = "pocionMana.png", position = game.center().up(6).left(3)),
+			new Puerta(position= game.center().up(6).left(4)),
+			new Llave(image = "Key.png", position= game.center().up(6).left(5)),
+			new Llave(image = "Key.png", position= game.center().up(6).left(5)),
+			new Llave(image = "Key.png", position= game.center().up(6).left(5)),
+			new PuertaLvl2(position = game.center().up(6).right(4)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Moneda(position = game.center().up(6).right(5)),
+			new Barril(position= game.center().up(1).left(2)),
+			spiderP,craneoP,esqueletoP
+			
+			
+		].forEach{cosa => game.addVisual(cosa)}
+	}
+}
+
+
+/////////////////////////////////////////////
 //////CELDAS SORPRESA //////////////////////
 ////////////////////////////////////////////
 
@@ -77,6 +120,8 @@ object pisosAleatorios{
 			new PisoTeletransporta(position = game.at(13,2)),
 			new PisoTeletransporta(position = game.at(1,12)),
 			new PisoTeletransporta(position = game.at(13,12))
+		
+			
 			
 		].forEach{cosa => game.addVisual(cosa)}
 		
@@ -100,6 +145,7 @@ object consumiblesLvl1{
 			new Consumible(energiaQueAporta = 20, image = "manzana.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png")
+			
 		].forEach{cosa => game.addVisual(cosa)}
 	}
 }
@@ -134,7 +180,6 @@ object consumiblesLvl3{
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
 			new PocionVida(energiaQueAporta = 20 , image = "pocionVida.png"),
-			new Bomba(),new Bomba(),new Bomba(), new Bomba(), new Bomba(),
 			new Bomba(),new Bomba(),new Bomba(), new Bomba(), new Bomba()
 		].forEach{cosa => game.addVisual(cosa)}
 	}

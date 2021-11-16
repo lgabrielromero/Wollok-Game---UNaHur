@@ -73,6 +73,7 @@ class Puerta {
 	var property image = "Door.png"
 	var property esAtravesable = false
 	var property contadorDeVisitas = 0
+	var property contadorDeVisitasSinObj = 0
 	const property tipo = "deposito"
 	
 	method validarLugarLibre(){
@@ -80,17 +81,19 @@ class Puerta {
 	}
 	
 	method colisionAccion(){
+		if (player.llaves() < 3 and self.contadorDeVisitasSinObj() == 0){
+			contadorDeVisitasSinObj +=1
+			game.say(player, "Necesito las 3 llaves!")
+		}
 		if (player.llaves() == 3 and self.contadorDeVisitas() == 0){
 			contadorDeVisitas +=1
 			game.say(player, "Parece que eran las llaves equivocadas!")
-			player.position(game.at(player.position().x(),player.position().y()-1))
 			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
 			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
 			game.addVisual(new Llave(image = "Key.png", position=randomSinPisarse.colocar()))
 		}
 		if (player.llaves() == 6 and self.contadorDeVisitas() == 1){
 			contadorDeVisitas +=1
-			player.position(game.at(player.position().x(),player.position().y()-1))
 			game.say(player, "Busquemos esa Llave Maestra!")
 			game.addVisual(new LlaveMaestra(image = "MasterKey2.png", position= randomSinPisarse.colocar()))
 			self.image("MasterDoor.png")
@@ -100,15 +103,18 @@ class Puerta {
 			game.sound("door_Open.mp3").play()
 			nivelBloques.terminar()
 		}
-		else{
-			game.say(player, "Necesito las 3 llaves!")
-		}
+		
 	}
 }
 
 class PuertaLvl2 inherits Puerta{
 	override method colisionAccion(){
+		if (player.monedas() < 10 ){
+			player.position(game.at(player.position().x(),player.position().y()-1))
+			game.say(player, "¡Hay monedas todavia!")
+		}
 		if (player.monedas() == 10){
+			game.sound("door_Open.mp3").play()
 			nivelLlaves.ganar()
 		}
 		

@@ -7,7 +7,7 @@ import visuals.*
 import nivel1.*
 import nivel2.*
 import nivel3.*
-
+import nivelTest.*
 
 
 ////////////////////
@@ -34,13 +34,13 @@ object player {
 	method perderPorEnergia(){
 		if (self.nivel() == 1){nivelBloques.perderPorEnergia()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorEnergia()}
-		else{nivelBonus.perderPorEnergia()}
+		else if (self.nivel() == 3){nivelBonus.perderPorEnergia()}
 	}
 	
 	method perderPorVida(){
 		if (self.nivel() == 1){nivelBloques.perderPorVida()}
 		else if (self.nivel() == 2){nivelLlaves.perderPorVida()}
-		else{nivelBonus.perderPorVida()}
+		else if(self.nivel() == 3){nivelBonus.perderPorVida()}
 	}
 	
 	method resetStats(){
@@ -147,6 +147,7 @@ object player {
 	keyboard.down().onPressDo({ self.moverAbajo() })
 	keyboard.space().onPressDo({ self.agarrar() })
 	keyboard.control().onPressDo({ self.tirarGranada()})
+	keyboard.p().onPressDo({ nivelTest.prueba() })
 	}
 	
 	method tirarGranada(){
@@ -287,6 +288,8 @@ class Lanzadora{
 	const property tipo = "ataque"
 	var property image = null
 	var property position = null
+	method esAtravesable() {return true}
+	method validarLugarLibre(){return true}
 	method colisionAccion(){}
 	method esEnemigo(x){
 		return game.getObjectsIn(x).any{ obj => obj.tipo() == "enemigo"}
@@ -393,7 +396,7 @@ class Enemigo{
 	method validarLugarLibre(){return false}
 	
 	method muerte(){
-		if (player.nivel() == 3 and nivelBonus.enemigosMuertos() < 19 ){
+		if (player.nivel() == 3 and nivelBonus.enemigosMuertos() < 15 ){
 			game.removeVisual(self)
 			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
 			game.schedule(2500, {
@@ -405,12 +408,15 @@ class Enemigo{
 			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
 			nivelBonus.ganar()
 		}
+		else if (player.nivel() == 4){
+			game.removeVisual(self)
+			game.schedule(2500, {
+			game.addVisual(self)
+			})
+		}
 		else{
 			game.removeVisual(self)
 			nivelBonus.enemigosMuertos(nivelBonus.enemigosMuertos() + 1)
-			game.schedule(5000, {
-			game.addVisual(self)
-			})
 		}
 		
 	}
@@ -522,7 +528,7 @@ class Spider inherits Esqueleto{
 	}
 	
 	method iniciarMovimientosAutomaticos(){
-		game.onTick(800, "movimientoSpider" , { self.mover() })
+		game.onTick(850, "movimientoSpider" , { self.mover() })
 	}
 	
 }

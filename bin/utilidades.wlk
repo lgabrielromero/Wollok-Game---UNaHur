@@ -1,12 +1,13 @@
 import wollok.game.*
 import personajes.*
-
+import visuals.*
 object utilidadesParaJuego {
 	method posicionArbitraria() {
 		return game.at(
 			0.randomUpTo(game.width()).truncate(0), 0.randomUpTo(game.height()).truncate(0)
 		)
 	}
+	
 	
 
 	method iniciarMovimientosAutomaticos(){
@@ -33,9 +34,16 @@ object utilidadesParaJuego {
 		game.onTick(900, "perseguir"  , { craneo2.moverHaciaJugador()})
 	}
 	
+	
+	
+	
+
+	
 	method resetearEnemigo(){
 		craneo1.position(craneo1.positionOriginal())
 		craneo2.position(craneo2.positionOriginal())
+		craneoP.position(craneoP.positionOriginal())
+		
 	}
 }
 
